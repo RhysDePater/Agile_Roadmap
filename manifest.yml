@@ -1,0 +1,15 @@
+modules:
+  jira:projectPage:
+    - key: hello-world-hello-world-project-page
+      function: main
+      title: hello-world
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/e25580b2-1108-4438-be86-93323f1c05ad
+  name: hello-world
+permissions:
+  scopes:
+    - manage:jira-project
+    - read:jira-work
