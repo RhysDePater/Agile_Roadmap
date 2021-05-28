@@ -3,10 +3,10 @@ import React from 'react';
 import api from "@forge/api";
 import { fetch } from '@forge/api';
 
-const fetchCommentsForIssue = async () => {
+const fetchCommentsForIssue = async (project) => {
     const res = await api
       .asApp()
-      .requestJira(`/rest/api/3/issue/CKRS-29`);
+      .requestJira(`/rest/api/3/search?jql=project=${project}&maxResults=200`);
   
     const data = await res.json();
     return data;
@@ -14,13 +14,14 @@ const fetchCommentsForIssue = async () => {
   
       
 const App = () => {
-    const context = useProductContext();
-    const [comments] = useState(async () => await fetchCommentsForIssue());
+    const context = useProductContext().platformContext.projectKey;
+    const context2 = useProductContext().platformContext.projectId;
+    const [comments] = useState(async () => await fetchCommentsForIssue(context));
     console.log("TEST")
 
     return (
         <Fragment>
-            <Text>Hello world 4!</Text>
+            <Text>Hello world 4! Project Key: {context}, Project ID: {context2}</Text>
             <Text>{JSON.stringify(comments)}</Text>
         </Fragment>
     );
