@@ -2,6 +2,7 @@ import ForgeUI, { render, ProjectPage, Fragment, Text, useProductContext, useSta
 import React from 'react';
 import api from "@forge/api";
 import { fetch } from '@forge/api';
+import {} from "./api/fetch";
 
 const fetchCommentsForIssue = async (project) => {
     const res = await api
