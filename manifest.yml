@@ -2,12 +2,12 @@ modules:
   jira:projectPage:
     - key: hello-world-hello-world-project-page
       function: main
-      title: hello-world
+      title: Shaun-testEnv
   function:
     - key: main
       handler: index.run
 app:
-  id: ari:cloud:ecosystem::app/e25580b2-1108-4438-be86-93323f1c05ad
+  id: ari:cloud:ecosystem::app/dab23d00-e35e-4067-8b12-9775a8afff9f
   name: hello-world
 permissions:
   scopes:
