@@ -1,0 +1,23 @@
+.col{
+    padding-bottom: 2em;
+  }
+  .columnBox {
+    display: inline-block;
+    width: 100%;
+    min-height: 13em;
+    padding-left: 5%; 
+    border-radius: 5px;
+    
+    text-align: left;
+    background-color: rgb(233, 233, 233);
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 20%);
+  }
+
+  .card {
+    width: 95%;
+    margin-top: 10px;
+    background-color: white;
+    text-align: center;
+    min-height: 10em;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%), 0 1px 1px 0 rgb(0 0 0 / 10%);
+  }

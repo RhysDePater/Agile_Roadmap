@@ -1,15 +1,16 @@
 modules:
   jira:projectPage:
-    - key: hello-world-hello-world-project-page
-      function: main
-      title: Agile Roadmap
+    - key: cap-atl-v3-hello-world-project-page
+      resource: main
+      resolver:
+        function: resolver
+      title: cap-atl-v3
   function:
-    - key: main
-      handler: index.run
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
 app:
-  id: ari:cloud:ecosystem::app/e25580b2-1108-4438-be86-93323f1c05ad
-  name: hello-world
-permissions:
-  scopes:
-    - manage:jira-project
-    - read:jira-work
+  id: ari:cloud:ecosystem::app/e1f3f546-71c8-47b5-b754-deb65dbaa816
+  name: cap-atl-v3
