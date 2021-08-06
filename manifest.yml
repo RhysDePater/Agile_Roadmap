@@ -10,7 +10,7 @@ modules:
       handler: index.handler
 resources:
   - key: main
-    path: static/hello-world/public
+    path: static/hello-world/build
 app:
   id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
   name: ui-merge-test
