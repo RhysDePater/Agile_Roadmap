@@ -1,9 +1,10 @@
-MODULES
-@forge/resolver
-@forge/api
-@forge/ui
+MODULES - add -l or -g if local or global 
+npm install @forge/resolver
+npm install @forge/api
+npm install @forge/ui
 
-new permissions added run forge install --upgrade
+new permissions added to manifest.yml, run forge install --upgrade
+change the manifest.yml application id to the one within your own custom ui branch to begin using
 
 # Forge Hello World
 
