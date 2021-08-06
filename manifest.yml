@@ -1,16 +1,20 @@
 modules:
   jira:projectPage:
-    - key: cap-atl-v3-hello-world-project-page
+    - key: agile-roadmap-ui-hello-world-project-page
       resource: main
       resolver:
         function: resolver
-      title: cap-atl-v3
+      title: agile_roadmap_ui
   function:
     - key: resolver
       handler: index.handler
 resources:
   - key: main
-    path: static/hello-world/build
+    path: static/hello-world/public
 app:
-  id: ari:cloud:ecosystem::app/e1f3f546-71c8-47b5-b754-deb65dbaa816
-  name: cap-atl-v3
+  id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
+  name: ui-merge-test
+permissions:
+  scopes:
+    - manage:jira-project
+    - read:jira-work

@@ -13,6 +13,10 @@ import {
 } from "reactstrap";
 
 import "./App.css"
+//import API TO MOVE TO APPROPRIATE LOCATION LATER
+import {fetchIssueKeys} from "./controller/api/fetch";
+import {getAppContextKey, getAppContextId } from './controller/helper/contextLib';
+//
 
 function Column(props) {
     return (
@@ -23,7 +27,17 @@ function Column(props) {
 }
 
 function App() {
+    //API CONSTS TO MOVE TO APPROPRIATE LOCATION LATER
+    const contextKey = getAppContextKey();
+    const contextId = getAppContextId();
+    const [issues] = useState(async () => await fetchIssueKeys(contextKey));    
+    /** HTML TO DISPLAY DATA
+    <div>
+        <Text>Hello world 4! Project Key: {contextKey}, Project ID: {contextId}</Text>
+        <Text>{JSON.stringify(issues)}</Text>
+    </div>
 
+     */
     const [ColumnName, SetColumnName] = useState();
     const [columns, setColumns] = useState([
         { id: 1, title: "Column 1" },
@@ -47,10 +61,8 @@ function App() {
         setColumns(updateUsers);
     }
 
-
     return (
         <div>
-            
             <Container fluid={true}>
                 <Row xs="5">
                     <Form

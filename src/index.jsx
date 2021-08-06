@@ -4,7 +4,7 @@ const resolver = new Resolver();
 
 resolver.define('getText', (req) => {
     console.log(req);
-
+    
     return (
         <div><h1>HELOO</h1></div>
     );

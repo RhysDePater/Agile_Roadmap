@@ -1,3 +1,10 @@
+MODULES
+@forge/resolver
+@forge/api
+@forge/ui
+
+new permissions added run forge install --upgrade
+
 # Forge Hello World
 
 This project contains a Forge app written in Javascript that displays `Hello World!` in a Jira project page. 
