@@ -14,8 +14,8 @@ import {
 
 import "./App.css"
 //import API TO MOVE TO APPROPRIATE LOCATION LATER
-import {fetchIssueKeys} from "./controller/api/fetch";
-import {getAppContextKey, getAppContextId } from './controller/helper/contextLib';
+// const api = require('./controller/api/fetch');
+// const helper = require('./controller/helper/contextLib');
 //
 
 function Column(props) {
@@ -28,17 +28,10 @@ function Column(props) {
 
 function App() {
     //API CONSTS TO MOVE TO APPROPRIATE LOCATION LATER
-    const contextKey = getAppContextKey();
-    const contextId = getAppContextId();
-    const [issues] = useState(async () => await fetchIssueKeys(contextKey));    
-    /** HTML TO DISPLAY DATA
-    <div>
-        <Text>Hello world 4! Project Key: {contextKey}, Project ID: {contextId}</Text>
-        <Text>{JSON.stringify(issues)}</Text>
-    </div>
-
-     */
-    const [ColumnName, SetColumnName] = useState();
+    // const contextKey = helper.getAppContextKey();
+    // const contextId = helper.getAppContextId();
+    // const [issues] = useState(async () => await api.fetchIssueKeys(contextKey));
+    // const [ColumnName, SetColumnName] = useState();
     const [columns, setColumns] = useState([
         { id: 1, title: "Column 1" },
         { id: 1, title: "Column 2" }

@@ -2,7 +2,11 @@ MODULES
 @forge/resolver
 @forge/api
 @forge/ui
+@forge/cli@latest
+npm build
+npm react-scripts
 
+install node_modules into hello-world directory 
 new permissions added run forge install --upgrade
 
 # Forge Hello World

@@ -26,6 +26,6 @@ export async function fetchIssueKeys(projectKey){
       console.log("failed to Connect to the Api Endpoint :");
       console.log(error);
     })
-    
+    console.log("api run check")
   return res;
 };
