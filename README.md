@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 MODULES
 @forge/resolver
 @forge/api
@@ -8,6 +9,7 @@ npm react-scripts
 
 install node_modules into hello-world directory 
 new permissions added run forge install --upgrade
+=======
 
 # Forge Hello World
 
