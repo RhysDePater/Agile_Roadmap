@@ -1,0 +1,6 @@
+get all issues with a fixedVersions field
+https://orangefortune.atlassian.net/rest/api/3/search?jql=fixVersion=10003&maxResults=100
+
+
+get all fixedVerions within project
+https://orangefortune.atlassian.net/rest/api/3/project/CKRS/versions
