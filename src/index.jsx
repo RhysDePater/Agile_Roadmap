@@ -2,7 +2,7 @@ import ForgeUI, { render, ProjectPage, Fragment, Text, useProductContext, useSta
 import React from 'react';
 import api from "@forge/api";
 import { fetch } from '@forge/api';
-import {fetchIssueKeys, fetchFixedVersions} from "./controller/api/fetch";
+import {fetchIssueKeys, fetchFixedVersions, issuesForEpic} from "./controller/api/fetch";
 import {getAppContextKey, getAppContextId } from './controller/helper/contextLib';
 import {filterJsonDataByFieldValue} from './controller/helper/generalHelper';
 
@@ -15,11 +15,22 @@ const App = () => {
     const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType',"initiative"));
     // const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'fixVersion',"10003"));
     // const [value] = useState(async () => await isChildOrParent(issueKey));    
+
+    for(let i =0;i<issues.length;i++)
+    {
+        if(issues[i].issueType == "Epic")
+        {
+            let [issuesKeys] = useState(async () => await issuesForEpic(issues[i].key));
+            issues[i].children = issuesKeys;
+        }
+    }
+
     return (
         <Fragment>
             <Text>Hello world 4! Project Key: {contextKey}, Project ID: {contextId}</Text>
             {/* <Text>value here: {JSON.stringify(value)}</Text> */}
             <Text>ISSUES{JSON.stringify(issues)}</Text>
+            <Text>{JSON.stringify(issues[0])}</Text>
             <Text>FIXED VERSIONS{JSON.stringify(fixedVersions)}</Text>
             <Text>FilterTest{JSON.stringify(selectedValue)}</Text>
         </Fragment>
