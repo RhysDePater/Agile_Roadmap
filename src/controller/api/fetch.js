@@ -7,10 +7,10 @@ const apiHelper = require('../helper/apiHelper')
  * @param {*} epicKey epic to get the issue off
  * @returns array of issue id's
  */
- export async function issuesForEpic (epic){
+ export async function storiesForEpic (epic){
   const res = await api
     .asApp()
-    .requestJira(`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
+    .requestJira(route`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => data.key))
     .catch((error) => {
@@ -29,36 +29,44 @@ const apiHelper = require('../helper/apiHelper')
 export async function fetchIssueKeys(projectKey){
   const res = await api
     .asApp()
-    .requestJira(`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
+    .requestJira(route`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => {
       if (data.fields.issuetype.name=="Epic")
-      {
-        
-          return {
-            key: data.key,
-            name: data.fields.summary,
-            issueType: data.fields.issuetype.name,
-            parentIDs: (data.fields.issuelinks).map((data) => data.outwardIssue.key),
-            fixVersion: apiHelper.getFixVersionsId(data.fields.fixVersions)
-            }
+      {        
+         return {
+           key: data.key,
+           name: data.fields.summary,
+           issueType: data.fields.issuetype.name,
+           parentIDs: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue'),
+           fixVersion: apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id')
+           }
         
       }
       if (data.fields.issuetype.name=="Story")
       {
-          return {
-            key: data.key,
-            name: data.fields.summary,
-            issueType: data.fields.issuetype.name,
-            children: (data.fields.subtasks).map((data) => data.key),
-            }
-      }
-      else {
         return {
           key: data.key,
           name: data.fields.summary,
           issueType: data.fields.issuetype.name,
+          children: apiHelper.getSingleValueFromJsonArray(data.fields.subtasks, 'key')
+          }
+      }
+      if (data.fields.issuetype.name=="Initiative")
+      {
+        return {
+          key: data.key,
+          name: data.fields.summary,
+          issueType: data.fields.issuetype.name,
+          children: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'inwardIssue'),
         }
+      }
+      else {
+          return {
+            key: data.key,
+            name: data.fields.summary,
+            issueType: data.fields.issuetype.name,
+          }
       }
     }))  
     .catch((error) => {
@@ -77,14 +85,14 @@ export async function fetchFixedVersions(projectKey){
   console.log(projectKey);
   const res = await api
   .asApp()
-  .requestJira(`/rest/api/3/project/${projectKey}/versions`)
+  .requestJira(route`/rest/api/3/project/${projectKey}/versions`)
   .then((res) => res.json())
   .then((res) => (res).map((data) =>{
      return {
          id: data.id,
          name: data.name,
-         startDate: apiHelper.checkDateValid(data.startDate),
-         releaseDate:  apiHelper.checkDateValid(data.releaseDate)   
+         startDate: apiHelper.checkIfValueExists(data.startDate),
+         releaseDate:  apiHelper.checkIfValueExists(data.releaseDate)   
      }
   }))
   .catch((error) => {

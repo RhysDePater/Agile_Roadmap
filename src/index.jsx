@@ -2,9 +2,9 @@ import ForgeUI, { render, ProjectPage, Fragment, Text, useProductContext, useSta
 import React from 'react';
 import api from "@forge/api";
 import { fetch } from '@forge/api';
-import {fetchIssueKeys, fetchFixedVersions, issuesForEpic} from "./controller/api/fetch";
+import {fetchIssueKeys, fetchFixedVersions, storiesForEpic} from "./controller/api/fetch";
 import {getAppContextKey, getAppContextId } from './controller/helper/contextLib';
-import {filterJsonDataByFieldValue} from './controller/helper/generalHelper';
+import {filterJsonDataByFieldValue, appendValueToIssue} from './controller/helper/generalHelper';
 
 const App = () => {       
     const issueKey = "CKRS-27";
@@ -12,7 +12,7 @@ const App = () => {
     const contextId = getAppContextId();
     const [issues] = useState(async () => await fetchIssueKeys(contextKey));    
     const [fixedVersions] = useState(async () => await fetchFixedVersions(contextKey));
-    const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType',"initiative"));
+    const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType',"sub-task"));
     // const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'fixVersion',"10003"));
     // const [value] = useState(async () => await isChildOrParent(issueKey));    
 
@@ -20,7 +20,7 @@ const App = () => {
     {
         if(issues[i].issueType == "Epic")
         {
-            let [issuesKeys] = useState(async () => await issuesForEpic(issues[i].key));
+            let [issuesKeys] = useState(async () => await storiesForEpic(issues[i].key));
             issues[i].children = issuesKeys;
         }
     }
