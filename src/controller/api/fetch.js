@@ -32,38 +32,36 @@ export async function fetchIssueKeys(projectKey) {
     .requestJira(`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => {
-      if (data.fields.issuetype.name == "Epic") {
-        return {
-          key: data.key,
-          name: data.fields.summary,
-          issueType: data.fields.issuetype.name,
-          parentIDs: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue'),
-          fixVersion: apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id')
-        }
-
-      }
-      if (data.fields.issuetype.name == "Story") {
-        return {
-          key: data.key,
-          name: data.fields.summary,
-          issueType: data.fields.issuetype.name,
-          children: apiHelper.getSingleValueFromJsonArray(data.fields.subtasks, 'key')
-        }
-      }
-      if (data.fields.issuetype.name == "Initiative") {
-        return {
-          key: data.key,
-          name: data.fields.summary,
-          issueType: data.fields.issuetype.name,
-          children: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'inwardIssue'),
-        }
-      }
-      else {
-        return {
-          key: data.key,
-          name: data.fields.summary,
-          issueType: data.fields.issuetype.name,
-        }
+      switch(data.fields.issuetype.name)
+      {
+        case "Epic":
+          return {
+            key: data.key,
+            name: data.fields.summary,
+            issueType: data.fields.issuetype.name,
+            parentIDs: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue'),
+            fixVersion: apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id')
+          }
+        case "Story":
+          return {
+            key: data.key,
+            name: data.fields.summary,
+            issueType: data.fields.issuetype.name,
+            children: apiHelper.getSingleValueFromJsonArray(data.fields.subtasks, 'key')
+          }
+        case "Initiative":
+          return {
+            key: data.key,
+            name: data.fields.summary,
+            issueType: data.fields.issuetype.name,
+            children: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'inwardIssue'),
+          }
+        default:
+          return {
+            key: data.key,
+            name: data.fields.summary,
+            issueType: data.fields.issuetype.name,
+          }
       }
     }))
     .catch((error) => {

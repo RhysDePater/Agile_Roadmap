@@ -2,7 +2,7 @@ modules:
   jira:projectPage:
     - key: hello-world-hello-world-project-page
       function: main
-      title: Shaun-testEnv
+      title: Rhys-testEnv
   function:
     - key: main
       handler: index.run
