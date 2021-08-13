@@ -7,8 +7,8 @@ modules:
     - key: main
       handler: index.run
 app:
-  id: ari:cloud:ecosystem::app/dab23d00-e35e-4067-8b12-9775a8afff9f
-  name: hello-world
+  id: ari:cloud:ecosystem::app/b1884350-2af9-46ff-94ff-e2aafbff65d8
+  name: agile-roadmap-rhys
 permissions:
   scopes:
     - manage:jira-project
