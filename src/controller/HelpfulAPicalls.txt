@@ -4,3 +4,19 @@ https://orangefortune.atlassian.net/rest/api/3/search?jql=fixVersion=10003&maxRe
 
 get all fixedVerions within project
 https://orangefortune.atlassian.net/rest/api/3/project/CKRS/versions
+
+modules:
+  jira:projectPage:
+    - key: hello-world-hello-world-project-page
+      function: main
+      title: shaun-testEnv
+  function:
+    - key: main
+      handler: index.run
+app:
+  id: ari:cloud:ecosystem::app/dab23d00-e35e-4067-8b12-9775a8afff9f
+  name: agile-roadmap
+permissions:
+  scopes:
+    - manage:jira-project
+    - read:jira-work

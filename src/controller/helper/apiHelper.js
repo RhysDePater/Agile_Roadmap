@@ -50,17 +50,19 @@ export function checkIfValueExists(jsonValue) {
 
 /**
    * 
-   * @param {*} jsonValue JSON value to parse
-   * @returns returns value is exists
+   * @param {*} contextKey project context key
+   * @param {*} apiCall1 fetch issues api call
+   * @param {*} apiCall2 fetch children api call
+   * @returns returns combined 2 api calls values into a single array of arrays
    */
-export function fetchAllIssueInfo(contextKey) {
-  const [issues] = useState(async () => await fetchIssueKeys(contextKey));
+export function fetchAllIssueInfo(contextKey, apiCall1, apiCall2) {
+  const [issues] = useState(async () => await apiCall1(contextKey));
 
   for(let i =0;i<issues.length;i++)
   {
       if(issues[i].issueType == "Epic")
       {
-        let [issuesKeys] = useState(async () => await storiesForEpic(issues[i].key));
+        let [issuesKeys] = useState(async () => await apiCall2(issues[i].key));
         issues[i].children = issuesKeys;
       }
   }

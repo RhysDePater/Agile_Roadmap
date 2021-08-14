@@ -10,7 +10,7 @@ const apiHelper = require('../helper/apiHelper')
 export async function storiesForEpic(epic) {
   const res = await api
     .asApp()
-    .requestJira(`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
+    .requestJira(route`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => data.key))
     .catch((error) => {
@@ -29,7 +29,7 @@ export async function storiesForEpic(epic) {
 export async function fetchIssueKeys(projectKey) {
   const res = await api
     .asApp()
-    .requestJira(`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
+    .requestJira(route`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => {
       switch(data.fields.issuetype.name)
@@ -80,7 +80,7 @@ export async function fetchFixedVersions(projectKey) {
   console.log(projectKey);
   const res = await api
     .asApp()
-    .requestJira(`/rest/api/3/project/${projectKey}/versions`)
+    .requestJira(route`/rest/api/3/project/${projectKey}/versions`)
     .then((res) => res.json())
     .then((res) => (res).map((data) => {
       return {
@@ -94,41 +94,5 @@ export async function fetchFixedVersions(projectKey) {
       console.log("failed to Connect to the Api Endpoint :");
       console.log(error);
     });
-  console.log(res)
   return res;
 };
-
-
-
-/**
- *
- * @param {*} versionKey version keys to search
- * @returns version values id, name, description, startDate, endDate
- */
-// export async function fetchFixedVersions(versionKey){
-  // versionKey = apiHelper.getFixedVersionKeys()
-  // var response = [];
-// 
-  // await Promise.all(versionKey.map(async (key) => {
-      // console.log(key);
-      // const res = await api
-      // .asApp()
-      // .requestJira(route`/rest/api/3/version/${key}`)
-      // .then((res) => res.json())
-      // .then((res) => {
-        // return {
-          // id: res.id,
-          // name: res.name,
-          // startDate: res.startDate,
-          // releaseDate: res.releaseDate        
-        // }
-      // })
-      // .catch((error) => {
-        // console.log("failed to Connect to the Api Endpoint :");
-        // console.log(error);
-      // })    
-      // response.push(res)  
-  // }))
-  // return response;
-// };
-

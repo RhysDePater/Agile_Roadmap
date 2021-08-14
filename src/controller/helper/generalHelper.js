@@ -15,6 +15,5 @@ export function filterJsonDataByFieldValue(data, fieldName, fieldValue){
             response.push(issue)   
         }    
     })
-    console.log(response)
     return response;
 }

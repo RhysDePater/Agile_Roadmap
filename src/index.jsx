@@ -11,9 +11,9 @@ const App = () => {
     const issueKey = "CKRS-27";
     const contextKey = getAppContextKey();
     const contextId = getAppContextId();
-    const [issues] = fetchAllIssueInfo(contextKey);
+    const [issues] = fetchAllIssueInfo(contextKey, fetchIssueKeys, storiesForEpic);
     const [fixedVersions] = useState(async () => await fetchFixedVersions(contextKey));
-    const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType', "sub-task"));
+    const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType', "epic"));
     // const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'fixVersion',"10003"));
     // const [value] = useState(async () => await isChildOrParent(issueKey));    
 
