@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-MODULES
-@forge/resolver
-@forge/api
-@forge/ui
-@forge/cli@latest
-npm build
-npm react-scripts
-
-install node_modules into hello-world directory 
-new permissions added run forge install --upgrade
-=======
+--Delete package-lock.json in top dicrectory and in static/hello world then run the npm installs
 
 # Forge Hello World
 
