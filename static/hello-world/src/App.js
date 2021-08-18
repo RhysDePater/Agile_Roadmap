@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import {view, invoke} from '@forge/bridge'
 import "./App.css"
-
+ 
 function App() {
     const [data, setData] = useState(null);
     const [contextKey, setContextKey] = useState(null);
@@ -49,9 +49,6 @@ function App() {
             {data ? data : 'Loading...' }
             {contextKey ? contextKey : 'Loading...'}
             {contextId ? contextId : 'Loading...'}
-
-
-            
         </div>
     );
 }
