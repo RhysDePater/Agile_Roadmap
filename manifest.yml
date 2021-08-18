@@ -4,7 +4,7 @@ modules:
       resource: main
       resolver:
         function: resolver
-      title: agile_roadmap_ui
+      title: shaun-ui
   function:
     - key: resolver
       handler: index.handler
