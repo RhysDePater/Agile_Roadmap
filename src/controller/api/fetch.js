@@ -10,7 +10,7 @@ const apiHelper = require('../helper/apiHelper')
 export async function storiesForEpic(epic) {
   const res = await api
     .asApp()
-    .requestJira(route`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
+    .requestJira(`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => data.key))
     .catch((error) => {
@@ -29,39 +29,39 @@ export async function storiesForEpic(epic) {
 export async function fetchIssueKeys(projectKey) {
   const res = await api
     .asApp()
-    .requestJira(route`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
+    .requestJira(`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => {
       switch(data.fields.issuetype.name)
       {
         case "Epic":
-          return {
-            key: data.key,
-            name: data.fields.summary,
-            issueType: data.fields.issuetype.name,
-            parentIDs: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue'),
-            fixVersion: apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id')
-          }
+          return [
+            data.key,
+            data.fields.summary,
+            data.fields.issuetype.name,
+            apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue'),
+            apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id')
+          ]
         case "Story":
-          return {
-            key: data.key,
-            name: data.fields.summary,
-            issueType: data.fields.issuetype.name,
-            children: apiHelper.getSingleValueFromJsonArray(data.fields.subtasks, 'key')
-          }
+          return [
+            data.key,
+            data.fields.summary,
+            data.fields.issuetype.name,
+            apiHelper.getSingleValueFromJsonArray(data.fields.subtasks, 'key')
+          ]
         case "Initiative":
-          return {
-            key: data.key,
-            name: data.fields.summary,
-            issueType: data.fields.issuetype.name,
-            children: apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'inwardIssue'),
-          }
+          return [
+            data.key,
+            data.fields.summary,
+            data.fields.issuetype.name,
+            apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'inwardIssue')
+          ]
         default:
-          return {
-            key: data.key,
-            name: data.fields.summary,
-            issueType: data.fields.issuetype.name,
-          }
+          return [
+            data.key,
+            data.fields.summary,
+            data.fields.issuetype.name
+          ]
       }
     }))
     .catch((error) => {
@@ -80,7 +80,7 @@ export async function fetchFixedVersions(projectKey) {
   console.log(projectKey);
   const res = await api
     .asApp()
-    .requestJira(route`/rest/api/3/project/${projectKey}/versions`)
+    .requestJira(`/rest/api/3/project/${projectKey}/versions`)
     .then((res) => res.json())
     .then((res) => (res).map((data) => {
       return {

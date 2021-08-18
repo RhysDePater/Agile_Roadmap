@@ -13,7 +13,7 @@ const App = () => {
     const contextId = getAppContextId();
     const [issues] = fetchAllIssueInfo(contextKey, fetchIssueKeys, storiesForEpic);
     const [fixedVersions] = useState(async () => await fetchFixedVersions(contextKey));
-    const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType', "epic"));
+    //const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'issueType', "epic"));
     // const [selectedValue] = useState(async () => await filterJsonDataByFieldValue(issues, 'fixVersion',"10003"));
     // const [value] = useState(async () => await isChildOrParent(issueKey));    
 
@@ -21,9 +21,9 @@ const App = () => {
         <Fragment>
             <Text>Hello world 4! Project Key: {contextKey}, Project ID: {contextId}</Text>
             {/* <Text>value here: {JSON.stringify(value)}</Text> */}
-            <Text>ISSUES{JSON.stringify(issues)}</Text>
+            <Text>ISSUES{issues.toString()}</Text>
             <Text>FIXED VERSIONS{JSON.stringify(fixedVersions)}</Text>
-            <Text>FilterTest{JSON.stringify(selectedValue)}</Text>
+            <Text>FilterTest{/*JSON.stringify(selectedValue)*/}</Text>
         </Fragment>
     );
 };

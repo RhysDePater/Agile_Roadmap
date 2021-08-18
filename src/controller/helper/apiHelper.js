@@ -60,10 +60,10 @@ export function fetchAllIssueInfo(contextKey, apiCall1, apiCall2) {
 
   for(let i =0;i<issues.length;i++)
   {
-      if(issues[i].issueType == "Epic")
+      if(issues[i][2] == "Epic")
       {
-        let [issuesKeys] = useState(async () => await apiCall2(issues[i].key));
-        issues[i].children = issuesKeys;
+        let [issuesKeys] = useState(async () => await apiCall2(issues[i][0]));
+        issues[i].push(issuesKeys);
       }
   }
   return [issues];

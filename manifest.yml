@@ -2,13 +2,13 @@ modules:
   jira:projectPage:
     - key: hello-world-hello-world-project-page
       function: main
-      title: shaun-testEnv
+      title: Rhys-testEnv
   function:
     - key: main
       handler: index.run
 app:
-  id: ari:cloud:ecosystem::app/dab23d00-e35e-4067-8b12-9775a8afff9f
-  name: agile-roadmap
+  id: ari:cloud:ecosystem::app/5e13be71-be4c-461b-a397-75be6edd32dc
+  name: agile-roadmap-rhys
 permissions:
   scopes:
     - manage:jira-project
