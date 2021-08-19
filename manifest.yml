@@ -4,7 +4,7 @@ modules:
       resource: main
       resolver:
         function: resolver
-      title: shaun-ui
+      title: rhys-ui
   function:
     - key: resolver
       handler: index.handler
@@ -12,8 +12,8 @@ resources:
   - key: main
     path: static/hello-world/build
 app:
-  id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
-  name: ui-merge-test
+  id: ari:cloud:ecosystem::app/d2352a6e-ecb0-47bc-a116-1a421b3e571e
+  name: rhys-ui-test
 permissions:
   scopes:
     - manage:jira-project

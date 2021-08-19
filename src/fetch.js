@@ -9,7 +9,7 @@ const apiHelper = require('./helper/apiHelper')
 export async function fetchStoriesForEpic(epic) {
   const res = await api
     .asApp()
-    .requestJira(route`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
+    .requestJira(`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => data.key))
     .catch((error) => {
@@ -27,7 +27,7 @@ export async function fetchStoriesForEpic(epic) {
 export async function fetchIssueKeys(projectKey) {
   const res = await api
     .asApp()
-    .requestJira(route`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
+    .requestJira(`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`)
     .then((res) => res.json())
     .then((res) => (res.issues).map((data) => {
       switch(data.fields.issuetype.name)
@@ -37,14 +37,16 @@ export async function fetchIssueKeys(projectKey) {
             data.key,
             data.fields.summary,
             data.fields.issuetype.name,
-            apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue'),
-            apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id')
+            apiHelper.getSingleValueFromJsonArray(data.fields.fixVersions, 'id'),
+            apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'outwardIssue')
           ]
         case "Story":
           return [
             data.key,
             data.fields.summary,
             data.fields.issuetype.name,
+            [],
+            [],
             apiHelper.getSingleValueFromJsonArray(data.fields.subtasks, 'key')
           ]
         case "Initiative":
@@ -52,13 +54,18 @@ export async function fetchIssueKeys(projectKey) {
             data.key,
             data.fields.summary,
             data.fields.issuetype.name,
+            [],
+            [],
             apiHelper.getSingleValueFromJsonArray(data.fields.issuelinks, 'key', 'inwardIssue')
           ]
         default:
           return [
             data.key,
             data.fields.summary,
-            data.fields.issuetype.name
+            data.fields.issuetype.name,
+            [],
+            [],
+            []
           ]
       }
     }))
@@ -78,7 +85,7 @@ export async function fetchFixedVersions(projectKey) {
   console.log(projectKey);
   const res = await api
     .asApp()
-    .requestJira(route`/rest/api/3/project/${projectKey}/versions`)
+    .requestJira(`/rest/api/3/project/${projectKey}/versions`)
     .then((res) => res.json())
     .then((res) => (res).map((data) => {
       return [
