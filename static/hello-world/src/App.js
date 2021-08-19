@@ -15,7 +15,8 @@ import {view, invoke} from '@forge/bridge'
 import "./App.css"
  
 function App() {
-    const [data, setData] = useState(null);
+    const [fixedVerions, setfixedVerions] = useState(null);
+    const [issues, setIssues] = useState(null);
     const [contextKey, setContextKey] = useState(null);
     const [contextId, setContextId] = useState(null)
     //export later get key
@@ -37,18 +38,45 @@ function App() {
     }, []);
 
     useEffect(() => {
-        async function getPromise(){
-            await invoke('getText', { projectKey: "CKRS" }).then(setData); 
+        async function getFixedVersions(){
+            await invoke('getFixedVersions', { projectKey: "CKRS" }).then(setfixedVerions); 
         }
-        getPromise();
+        getFixedVersions();
+    }, []);
 
+    useEffect(() => {
+        async function getIssues(){
+            await invoke('getIssues', { projectKey: "CKRS" }).then(setIssues); 
+        }
+        getIssues();
     }, []);
 
     return (
         <div>
-            {data ? data : 'Loading...' }
-            {contextKey ? contextKey : 'Loading...'}
-            {contextId ? contextId : 'Loading...'}
+            <div>
+                <h>
+                    Fixed Versions: 
+                </h>
+                {fixedVerions ? fixedVerions : 'Loading...' }
+            </div>
+            <div>
+                 <h>
+                    Issues: 
+                 </h>
+                 {issues ? issues : 'Loading...' }
+            </div>
+            <div>
+                <h>
+                    contextKey: 
+                 </h>                            
+                {contextKey ? contextKey : 'Loading...'}
+            </div>
+            <div>
+                <h>
+                    contextId: 
+                </h>                            
+                {contextId ? contextId : 'Loading...'}
+            </div>            
         </div>
     );
 }
