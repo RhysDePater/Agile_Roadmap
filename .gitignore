@@ -3,4 +3,8 @@ static/hello-world/node_modules
 package-lock.json
 static/hello-world/package-lock.json
 static/hello-world/build
+<<<<<<< HEAD
 manifest.yml
+=======
+manifest.yml
+>>>>>>> 8851e8d380cc972258620c9404bf3369cf487275
