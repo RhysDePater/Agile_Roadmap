@@ -4,7 +4,7 @@ modules:
       resource: main
       resolver:
         function: resolver
-      title: rhys-ui
+      title: shaun-ui
   function:
     - key: resolver
       handler: index.handler
@@ -12,7 +12,7 @@ resources:
   - key: main
     path: static/hello-world/build
 app:
-  id: ari:cloud:ecosystem::app/d2352a6e-ecb0-47bc-a116-1a421b3e571e
+  id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
   name: rhys-ui-test
 permissions:
   scopes:
