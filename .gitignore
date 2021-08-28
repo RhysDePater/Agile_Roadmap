@@ -1,6 +1,4 @@
 /node_modules
 static/hello-world/node_modules
-package-lock.json
-static/hello-world/package-lock.json
 static/hello-world/build
 manifest.yml
