@@ -1,23 +1,126 @@
-.col{
-    padding-bottom: 2em;
-  }
-  .columnBox {
-    display: inline-block;
-    width: 100%;
-    min-height: 13em;
-    padding-left: 5%; 
-    border-radius: 5px;
-    
-    text-align: left;
-    background-color: rgb(233, 233, 233);
-    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 20%);
-  }
+.col {
+  padding-bottom: 2em;
+}
+.columnBox {
+  display: inline-block;
+  width: 100%;
+  min-height: 13em;
+  padding-left: 5%;
+  border-radius: 5px;
 
-  .card {
-    width: 95%;
-    margin-top: 10px;
-    background-color: white;
-    text-align: center;
-    min-height: 10em;
-    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%), 0 1px 1px 0 rgb(0 0 0 / 10%);
-  }
+  text-align: left;
+  background-color: rgb(233, 233, 233);
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 20%);
+}
+
+.card {
+  width: 95%;
+  margin-top: 10px;
+  background-color: white;
+  text-align: center;
+  min-height: 10em;
+  box-shadow: 0 1px 1px 0 rgb(0 0 0 / 10%), 0 1px 1px 0 rgb(0 0 0 / 10%);
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  width: 90%;
+  display: inline-flex;
+  /* overflow-x: auto;
+    white-space: nowrap; */
+}
+
+.fixedVersion {
+  width: 25em;
+  display: block;
+  background-color: rgb(244, 245, 247);
+  margin-left: 1em;
+  color: #5e6c84;
+  height: 15em;
+  padding: 1em;
+  text-align: left;
+}
+
+.Api {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+}
+
+.ui-cont {
+  display: flex;
+  flex-direction: row;
+}
+
+/* New elements */
+
+.initiativeBox {
+  margin-top: 1em;
+}
+.InitiativeSize {
+  width: 28em;
+  height: 1em;
+}
+.fixSize {
+  height: auto;
+  width: 25em;
+  display: block;
+  background-color: rgb(244, 245, 247);
+  margin-left: 1em;
+  color: #5e6c84;
+  text-align: left;
+  padding: 1em;
+}
+.intiative {
+  min-width: 20em;
+  min-height: 8em;
+  align-content: center;
+  margin: 4em;
+  border-radius: 5px;
+  line-height: 8em;
+  text-align: center;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(248, 248, 248);
+  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%), 0 2px 10px 0 rgb(0 0 0 / 10%);
+}
+
+.epic {
+  width: 23em;
+  min-height: 9em;
+  padding: 1em;
+  margin-top: 1em;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 1px 4px 0 rgb(133 133 133 / 10%), 0 2px 10px 0 rgb(0 0 0 / 10%);
+}
+
+.epic:hover {
+  background-color: rgb(235, 236, 240);
+}
+.epicName {
+  padding: 0.1em;
+  width: auto;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.epicNum {
+  margin-right: 0;
+  text-align: right;
+  padding: 0.5em;
+}
+.Storybox {
+  width: 100%;
+}
+
+.dateonfix {
+  margin-right: 0;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.options {
+  margin-bottom: 3em;
+}
