@@ -1,19 +1,21 @@
 modules:
   jira:projectPage:
-    - key: seb-test-hello-world-project-page
+    - key: seb-ui-hello-world-project-page
       resource: main
       resolver:
         function: resolver
-      title: Seb-testEnv
+      title: Seb-UI
   function:
     - key: resolver
       handler: index.handler
 resources:
   - key: main
     path: static/hello-world/build
+    tunnel:
+      port: 3000
 app:
-  id: ari:cloud:ecosystem::app/5cb0d284-54a1-4891-97fa-ceba4760238f
-  name: seb-test
+  id: ari:cloud:ecosystem::app/4c731d51-16a5-49f0-98b4-4a1cf3a4fb86
+  name: Seb-UI
 permissions:
   scopes:
     - manage:jira-project
