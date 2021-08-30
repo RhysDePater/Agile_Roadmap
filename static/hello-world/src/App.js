@@ -164,67 +164,37 @@ function App() {
                                                                         {issues[0].map((issu1, k) => (
                                                                             <div>
                                                                                 {(() => {
-                                                                                    if (
-                                                                                        issues[0][k][3] ==
-                                                                                        fixedVerions[j][0]
-                                                                                    ) {
+                                                                                    if (issues[0][k][3] == fixedVerions[j][0]) {
                                                                                         return (
                                                                                             // Getting Epics
                                                                                             <div>
-                                                                                                {issues[0][k][4].map(
-                                                                                                    (epi, l) => (
-                                                                                                        // If Epics match Initiative and fix version then display
-                                                                                                        <div>
-                                                                                                            {(() => {
-                                                                                                                if (
-                                                                                                                    issues[0][k][4][l] ==
-                                                                                                                    issues[0][i][0]
-                                                                                                                ) {
-                                                                                                                    return (
-                                                                                                                        // display stories
-                                                                                                                        <div
-                                                                                                                            className="epic"
-                                                                                                                            onClick={toggleM}
-                                                                                                                        >
-                                                                                                                            <p>
-                                                                                                                                <div className="epicName">
-                                                                                                                                    {
-                                                                                                                                        issues[0][
-                                                                                                                                        k
-                                                                                                                                        ][1]
-                                                                                                                                    }
-                                                                                                                                </div>
-                                                                                                                            </p>
+                                                                                                {issues[0][k][4].map((epi, l) => (
+                                                                                                    // If Epics match Initiative and fix version then display
+                                                                                                    <div>
+                                                                                                        {(() => {
+                                                                                                            if (issues[0][k][4][l] == issues[0][i][0]) {
+                                                                                                                return (
+                                                                                                                    // display stories
+                                                                                                                    <div className="epic" onClick={toggleM}>
+                                                                                                                        <p>
+                                                                                                                            <div className="epicName">
+                                                                                                                                {issues[0][k][1]}
+                                                                                                                            </div>
+                                                                                                                        </p>
 
-                                                                                                                            {issues[0][
-                                                                                                                                k
-                                                                                                                            ][5].map(
-                                                                                                                                (str, x) => (
-                                                                                                                                    <div className="Storybox">
-                                                                                                                                        {" "}
-                                                                                                                                        Story:{" "}
-                                                                                                                                        {
-                                                                                                                                            issues[0][
-                                                                                                                                            k
-                                                                                                                                            ][5][x]
-                                                                                                                                        }
-                                                                                                                                    </div>
-                                                                                                                                )
-                                                                                                                            )}
-
-                                                                                                                            <p className="epicNum">
-                                                                                                                                {
-                                                                                                                                    issues[0][
-                                                                                                                                    k
-                                                                                                                                    ][0]
-                                                                                                                                }
-                                                                                                                            </p>
-                                                                                                                        </div>
-                                                                                                                    );
-                                                                                                                }
-                                                                                                            })()}
-                                                                                                        </div>
-                                                                                                    )
+                                                                                                                        {issues[0][k][5].map((str, x) => (
+                                                                                                                            <div className="Storybox">
+                                                                                                                                Story:{issues[0][k][5][x]}
+                                                                                                                            </div>
+                                                                                                                        )
+                                                                                                                        )}
+                                                                                                                        <p className="epicNum">{issues[0][k][0]}</p>
+                                                                                                                    </div>
+                                                                                                                );
+                                                                                                            }
+                                                                                                        })()}
+                                                                                                    </div>
+                                                                                                )
                                                                                                 )}
                                                                                             </div>
                                                                                         );
@@ -232,11 +202,9 @@ function App() {
                                                                                 })()}
                                                                             </div>
                                                                         ))}
-
                                                                     </div>
                                                                 </Col>
                                                             ))}
-
                                                         </div>
                                                     </Row>
                                                 );
