@@ -6,6 +6,7 @@ import {
     Col,
     ButtonDropdown,
     DropdownToggle,
+    Dropdown,
     DropdownMenu,
     DropdownItem,
     Modal,
@@ -24,16 +25,24 @@ import "./App.css";
 
 function App() {
     const [fixedVerions, setfixedVerions] = useState(null);
+    const [fixedVerions1, setfixedVerions1] = useState(null);
     const [issues, setIssues] = useState(null);
     const [contextKey, setContextKey] = useState(null);
     const [contextId, setContextId] = useState(null);
     const [dropdownOpen, setOpen] = useState(false);
+    const [found, setfound] = useState(false);
 
     const [modal, setModal] = useState(false);
 
     const toggleM = () => setModal(!modal);
 
     const toggle = () => setOpen(!dropdownOpen);
+
+    const [dropdownOpen1, setDropdownOpen] = useState(false);
+
+    const toggle1 = () => setDropdownOpen(prevState => !prevState);
+
+
     //export later get key
     useEffect(() => {
         async function getKey() {
@@ -58,7 +67,13 @@ function App() {
                 setfixedVerions
             );
         }
+        async function getFixedVersions1() {
+            await invoke("getFixedVersions", { projectKey: "CKRS" }).then(
+                setfixedVerions1
+            );
+        }
         getFixedVersions();
+        getFixedVersions1();
     }, []);
 
     useEffect(() => {
@@ -70,77 +85,115 @@ function App() {
 
     return (
         <div>
-            {/* Filter dropdown*/}
-            <Row>
-                <Col sm={{ size: "auto", offset: 10 }}>
-                    <div className="options">
-                        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-                            <DropdownToggle caret>Filter</DropdownToggle>
-                            <DropdownMenu>
-                                <Form>
-                                    {(() => {
-                                        if (fixedVerions) {
-                                            return (
-                                                <div>
-                                                    {fixedVerions.map((fixVer, i) => (
-                                                        <DropdownItem>
-                                                            <FormGroup check>
-                                                                <Label check>
-                                                                    {fixedVerions[i][1]}
-                                                                    <Input type="checkbox" />{" "}
-                                                                </Label>{" "}
-                                                            </FormGroup>
-                                                        </DropdownItem>
-                                                    ))}
-                                                </div>
-                                            );
-                                        } else {
-                                            return <DropdownItem>Loading..</DropdownItem>;
-                                        }
-                                    })()}
-                                </Form>
-                            </DropdownMenu>
-                        </ButtonDropdown>
-                    </div>
-                </Col>
-            </Row>
-
-            {/* Fixed versions*/}
-            <Row>
-                <div className="ui-cont">
-                    <Col xs="auto">
-                        <div className="InitiativeSize"></div>
-                    </Col>
-
-                    {(() => {
-                        if (fixedVerions) {
-                            return (
-                                <div className="ui-cont">
-                                    {fixedVerions.map((fixVer, i) => (
-                                        <Col xs="auto">
-                                            <div className="fixSize">
-                                                <p className="dateonfix">
-                                                    {fixedVerions[i][1]} -- {fixedVerions[i][2]} -{" "}
-                                                    {fixedVerions[i][3]}
-                                                </p>
-                                            </div>
-                                        </Col>
-                                    ))}
-                                </div>
-                            );
-                        } else {
-                            return <div>Loading..</div>;
-                        }
-                    })()}
-                </div>
-
-                {/* Initiatives with matching epics in fixed versions*/}
-            </Row>
             <div>
+
+
+
+
                 {(() => {
                     if (issues && fixedVerions) {
                         return (
                             <div>
+                                {/* Filter dropdown*/}
+                                {
+                                    (() => {
+                                        if (fixedVerions1) {
+                                            return (
+                                                <div>
+                                                    <Dropdown isOpen={dropdownOpen1} toggle={toggle1} >
+                                                        <DropdownToggle
+                                                            tag="span"
+                                                            data-toggle="dropdown"
+                                                            aria-expanded={dropdownOpen1}
+
+                                                        >
+                                                            <div className="dropdwnbtn"><b>Filter ▶</b></div>
+                                                        </DropdownToggle>
+                                                        <DropdownMenu>
+                                                            {fixedVerions1.map((fixVer, i) => (
+                                                                <div className="dropitem"><FormGroup check>
+                                                                    <Label check>
+                                                                        {fixedVerions1[i][0]} - {fixedVerions1[i][1]}
+                                                                        <Input type="checkbox" defaultChecked="true" onChange={(event) => {
+
+                                                                            for (var j = 0; j < fixedVerions.length; j++) {
+
+                                                                                if (fixedVerions[j][0].includes(fixedVerions1[i][0])) {
+                                                                                    setfixedVerions(fixedVerions.filter((fv) => !fv.includes(fixedVerions1[i][0])));
+                                                                                    setfound(true);
+                                                                                    console.log("found")
+
+                                                                                }
+                                                                            }
+
+                                                                            //if (found) {
+                                                                            //    setfound(false)
+                                                                            //} else {
+                                                                            //    var addback = [fixedVerions1[i][0], fixedVerions1[i][1], fixedVerions1[i][2], fixedVerions1[i][3]]
+                                                                            //    var test = [...fixedVerions, addback].sort((b, a) => {
+                                                                            //        if (a && b) {
+                                                                            //            return b[0] - a[0]
+                                                                            //        }
+                                                                            //    })
+                                                                            //   setfixedVerions(test);
+                                                                            //    console.log("not found")
+                                                                            //}
+                                                                        }
+
+                                                                        } />{" "}
+
+
+                                                                    </Label>{" "}
+                                                                </FormGroup></div>
+
+
+                                                            ))}
+
+                                                        </DropdownMenu>
+
+                                                    </Dropdown>
+
+
+
+                                                </div>
+                                            );
+                                        } else {
+                                            return <div>Loading..</div>;
+                                        }
+                                    })()
+                                }
+
+                                {/* Fixed versions*/}
+                                <Row>
+                                    <div className="ui-cont">
+                                        <Col xs="auto">
+                                            <div className="InitiativeSize"></div>
+                                        </Col>
+
+                                        {(() => {
+                                            if (fixedVerions) {
+                                                return (
+                                                    <div className="ui-cont">
+                                                        {fixedVerions.map((fixVer, i) => (
+                                                            <Col xs="auto">
+                                                                <div className="fixSize">
+                                                                    <p className="dateonfix">
+                                                                        {fixedVerions[i][1]} -- {fixedVerions[i][2]} -{" "}
+                                                                        {fixedVerions[i][3]}
+                                                                    </p>
+                                                                </div>
+                                                            </Col>
+                                                        ))}
+                                                    </div>
+                                                );
+                                            } else {
+                                                return <div>Loading..</div>;
+                                            }
+                                        })()}
+                                    </div>
+
+                                    {/* Initiatives with matching epics in fixed versions*/}
+                                </Row>
                                 {issues[0].map((issu, i) => (
                                     // Getting initiatives and displaying them
                                     <div>
@@ -176,15 +229,16 @@ function App() {
                                                                                                                 return (
                                                                                                                     // display stories
                                                                                                                     <div className="epic" onClick={toggleM}>
-                                                                                                                        <p>
-                                                                                                                            <div className="epicName">
+
+                                                                                                                        <div className="epicName">
+                                                                                                                            <p>
                                                                                                                                 {issues[0][k][1]}
-                                                                                                                            </div>
-                                                                                                                        </p>
+                                                                                                                            </p>
+                                                                                                                        </div>
 
                                                                                                                         {issues[0][k][5].map((str, x) => (
                                                                                                                             <div className="Storybox">
-                                                                                                                                Story:{issues[0][k][5][x]}
+                                                                                                                                Story: {issues[0][k][5][x]}
                                                                                                                             </div>
                                                                                                                         )
                                                                                                                         )}
@@ -215,7 +269,7 @@ function App() {
                             </div>
                         );
                     } else {
-                        return <div>Loading...</div>;
+                        return <div className="lds-ring"><div></div><div></div><div></div><div></div></div>;
                     }
                 })()}
             </div>
@@ -236,30 +290,30 @@ function App() {
             <br></br>
             <br></br>
 
-            {issues
-                ? issues[0].map((value, i) => (
-                    <div>
-                        <div>{issues[0][i]}</div>
-                    </div>
-                ))
+
+            {issues ? issues[0].map((value, i) => (
+                <div>
+                    <div>{issues[0][i]}</div>
+                </div>
+            ))
                 : "Loading.."}
             <div className="Api">
                 <div>
-                    <h>Fixed Versions:</h>
+                    <p>Fixed Versions:</p>
                     {fixedVerions ? fixedVerions : "Loading..."}
                 </div>
                 <br></br>
                 <div>
-                    <h>contextKey:</h>
+                    <p>contextKey:</p>
                     {contextKey ? contextKey : "Loading..."}
                 </div>
                 <br></br>
                 <div>
-                    <h>contextId:</h>
+                    <p>contextId:</p>
                     {contextId ? contextId : "Loading..."}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
