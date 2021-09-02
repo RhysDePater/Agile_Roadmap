@@ -1,21 +1,19 @@
 modules:
   jira:projectPage:
-    - key: seb-ui-hello-world-project-page
+    - key: shaun-ui-hello-world-project-page
       resource: main
       resolver:
         function: resolver
-      title: Seb-UI
+      title: shaun-ui
   function:
     - key: resolver
       handler: index.handler
 resources:
   - key: main
     path: static/hello-world/build
-    tunnel:
-      port: 3000
 app:
-  id: ari:cloud:ecosystem::app/4c731d51-16a5-49f0-98b4-4a1cf3a4fb86
-  name: Seb-UI
+  id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
+  name: shaun-UI
 permissions:
   scopes:
     - manage:jira-project

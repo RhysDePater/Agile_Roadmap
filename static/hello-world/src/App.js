@@ -20,6 +20,7 @@ import {
     FormText,
 } from "reactstrap";
 
+import dropDown from "./components/dropdown";
 import { view, invoke } from "@forge/bridge";
 import "./App.css";
 
@@ -83,13 +84,12 @@ function App() {
         getIssues();
     }, []);
 
+     //two arrays approach wont work. need to append value to each array and run an isChecked to render information
+     //ADD ISCHECKED VALUE TO FIXED VERSIOSN ARRAY -- TODO
+
     return (
         <div>
             <div>
-
-
-
-
                 {(() => {
                     if (issues && fixedVerions) {
                         return (
@@ -114,30 +114,19 @@ function App() {
                                                                 <div className="dropitem"><FormGroup check>
                                                                     <Label check>
                                                                         {fixedVerions1[i][0]} - {fixedVerions1[i][1]}
-                                                                        <Input type="checkbox" defaultChecked="true" onChange={(event) => {
-
-                                                                            for (var j = 0; j < fixedVerions.length; j++) {
-
-                                                                                if (fixedVerions[j][0].includes(fixedVerions1[i][0])) {
-                                                                                    setfixedVerions(fixedVerions.filter((fv) => !fv.includes(fixedVerions1[i][0])));
-                                                                                    setfound(true);
-                                                                                    console.log("found")
-
-                                                                                }
+                                                                        <Input type="checkbox" defaultChecked="true" onChange={(e) => {
+                                                                            //check if box is ticked
+                                                                            if(e.target.checked == true){
+                                                                                console.log("istrue")    
+                                                                                //isChecked vlaue to true in array -- TO DO                                                                              
+                                                                                                                              
                                                                             }
-
-                                                                            //if (found) {
-                                                                            //    setfound(false)
-                                                                            //} else {
-                                                                            //    var addback = [fixedVerions1[i][0], fixedVerions1[i][1], fixedVerions1[i][2], fixedVerions1[i][3]]
-                                                                            //    var test = [...fixedVerions, addback].sort((b, a) => {
-                                                                            //        if (a && b) {
-                                                                            //            return b[0] - a[0]
-                                                                            //        }
-                                                                            //    })
-                                                                            //   setfixedVerions(test);
-                                                                            //    console.log("not found")
-                                                                            //}
+                                                                            //check if box is not ticked
+                                                                            if(e.target.checked == false){
+                                                                                //isChecked value to false in array -- TO DO
+                                                                            
+                                                                            }                                                                            
+                                                                            console.log(i +": "+ e.target.checked)
                                                                         }
 
                                                                         } />{" "}
