@@ -22,7 +22,7 @@ import {
 } from "reactstrap";
 
 import { useAppContext } from "../../services/contextLib";
-import FilterDropdown from "./FilterDropdown";
+import FilterDropdown from "./elements/FilterDropdown";
 
 
 export default function FilterComponent(){
@@ -33,7 +33,7 @@ export default function FilterComponent(){
     return(
         <div>
             {FilterDropdown(fixedVersions, setFixedVersions)}
-            {FilterDropdown(initiatives, setInitiatives)}
+            {/* {FilterDropdown(initiatives, setInitiatives)} */}
         </div>
     )
 }

@@ -6,7 +6,7 @@
  * @param {*} tertiaryField fieldValue for going an extra array level deep
  * @returns single field value from dynamic length json array
  */
-export function getSingleValueFromJsonArray(jsonArray, fieldToReturn, tertiaryField) {
+ export function getSingleValueFromJsonArray(jsonArray, fieldToReturn, tertiaryField) {
   const fieldArray = [];
   if (tertiaryField == null || undefined) {
     for (let i = 0; i < jsonArray.length; i++) {
@@ -44,23 +44,3 @@ export function checkIfValueExists(jsonValue) {
   }
 }
 
-/**
-   * 
-   * @param {*} contextKey project context key
-   * @param {*} apiCall1 fetch issues api call
-   * @param {*} apiCall2 fetch children api call
-   * @returns returns combined 2 api calls values into a single array of arrays
-   */
-export async function fetchAllIssueInfo(contextKey, apiCall1, apiCall2) {
-  const issues =  await apiCall1(contextKey);
-
-  for(let i =0;i<issues.length;i++)
-  {
-      if(issues[i][2] == "Epic")
-      {
-        let issuesKeys = await apiCall2(issues[i][0]);
-        issues[i].push(issuesKeys);
-      }
-  }
-  return [issues];
-}

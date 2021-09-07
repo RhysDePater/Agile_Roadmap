@@ -24,22 +24,7 @@ import {
 export default function FilterDropdown(arrayToFilter, setArrayToFilter) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
-
-    const [dropdownData, setDropdownData] = useState([]);
-
-    useEffect(() => {
-        if(arrayToFilter.length > 0){
-            let temp_array = [];  
-            ///map          
-            for(let i = 0; i < arrayToFilter.length; i++){
-                let element = arrayToFilter[i];
-                element.push(true); //boolean is set
-                temp_array.push(element);
-            }          
-            setDropdownData(temp_array);
-        }
-    }, [])
-
+    
     return (
         <div>
             <Dropdown isOpen={dropdownOpen} toggle={toggle} >
@@ -51,17 +36,17 @@ export default function FilterDropdown(arrayToFilter, setArrayToFilter) {
                     <div className="dropdwnbtn"><b>Filter ▶</b></div>
                 </DropdownToggle>
                 <DropdownMenu>
-                    {dropdownData.map((fixVer, i) => (
+                    {arrayToFilter.map((data, i) => (
                         <div className="dropitem"><FormGroup check>
                             <Label check>
-                                {dropdownData[i][1] /**label names */ }
+                                {arrayToFilter[i][1] /**label names */ }
                                 <Input type="checkbox" 
-                                defaultChecked={dropdownData[i][dropdownData.length - 1] /**checkbox is ticked value*/ } 
+                                defaultChecked={data[data.length - 1] /**checkbox is ticked value*/ } 
                                 onChange={(e) => {
                                     //store current data
                                     //if an event update
                                     if(e.target.checked == true){     
-                                        let newArr = [...dropdownData];       
+                                        let newArr = [...arrayToFilter];       
                                         console.log("BOOLEAN set to: " + e.target.checked);                
                                         //store updated value in temp array
                                         newArr[i][newArr[i].length - 1] = e.target.checked;
@@ -71,7 +56,7 @@ export default function FilterDropdown(arrayToFilter, setArrayToFilter) {
                                     }
                                     // check if box is not ticked
                                     if(e.target.checked == false){
-                                        let newArr = [...dropdownData];
+                                        let newArr = [...arrayToFilter];
                                         console.log("BOOLEAN set to: " + e.target.checked);
                                         //store updated value in temp array
                                         newArr[i][newArr[i].length - 1] = e.target.checked;
