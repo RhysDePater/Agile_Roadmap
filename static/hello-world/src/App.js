@@ -27,21 +27,22 @@ import { view, invoke } from "@forge/bridge";
 import "./App.css";
 // import FilterDropDown from "./components/filter/FilterDropdown"
 import FilterComponent from "./components/filter/FilterComponent";
-import {parseByIssueType} from "./services/helper";
-import TableComponent from "./components/table/TableComponent";
-import FixedVersionCol from "./components/table/FixedVersionCol";
+import { parseByIssueType } from "./services/helper";
+//import TableComponent from "./components/table/TableComponent";
+//import FixedVersionCol from "./components/table/FixedVersionCol";
+import ReactTableComponent from "./components/table/table";
 export default function App() {
     //usestates
     const [fixedVersions, setFixedVersions] = useState([]);
     const [initiatives, setInitiatives] = useState([]);
-    const [epics, setEpics] = useState([]); 
+    const [epics, setEpics] = useState([]);
     const [issues, setIssues] = useState([]);
     const [modal, setModal] = useState(false);
     const toggleM = () => setModal(!modal);
 
     useEffect(() => {
         async function getAllInfo() {
-            try{
+            try {
                 const context = await view.getContext();
                 const key = context.extension.project.key
                 await invoke("getFixedVersions", { projectKey: key }).then((data) =>
@@ -50,55 +51,58 @@ export default function App() {
                 await invoke("getIssues", { projectKey: key }).then((data) => {
                     setEpics(parseByIssueType(data, "Epic"))
                     setInitiatives(parseByIssueType(data, "Initiative"))
-                    setIssues(data)                    
+                    setIssues(data)
 
                 }
                 );
-            }catch(e){
+            } catch (e) {
                 console.log("API RENDER ERROR: " + e);
             }
         }
-        getAllInfo();        
+        getAllInfo();
     }, []);
-            
-    if(fixedVersions.length > 0 && issues.length > 0){
-        return(
+
+    if (fixedVersions.length > 0 && issues.length > 0) {
+        return (
             <div>
-                <AppContext.Provider value={{fixedVersions, setFixedVersions, issues, setIssues, initiatives, setInitiatives}}>
+                <AppContext.Provider value={{ fixedVersions, setFixedVersions, issues, setIssues, initiatives, setInitiatives, epics, setEpics }}>
                     <FilterComponent />
+
+                    <ReactTableComponent />
                 </AppContext.Provider>
+
                 <div>
-                {fixedVersions.map((version, i) => (
-                    <p>
-                    {Object.keys(version).map((key, j) => (
-                         <span>{key}: {version[key] }</span>        
+                    {fixedVersions.map((version, i) => (
+                        <p>
+                            {Object.keys(version).map((key, j) => (
+                                <span>{key}: {version[key]}</span>
+                            ))}
+                        </p>
                     ))}
-                    </p>
-                ))} 
-                </div>   
+                </div>
                 <div>
                     {epics.map((epic, i) => (
                         <p>
-                        {Object.keys(epic).map((key, j) => (
-                             <span>{key}: {epic[key] }</span>        
-                        ))}
+                            {Object.keys(epic).map((key, j) => (
+                                <span>{key}: {epic[key]}</span>
+                            ))}
                         </p>
-                    ))}    
-                </div> 
+                    ))}
+                </div>
                 <div>
                     {initiatives.map((initiative, i) => (
                         <p>
-                        {Object.keys(initiative).map((key, j) => (
-                             <span>{key}: {initiative[key] }</span>        
-                        ))}
+                            {Object.keys(initiative).map((key, j) => (
+                                <span>{key}: {initiative[key]}</span>
+                            ))}
                         </p>
-                    ))}    
-                </div> 
+                    ))}
+                </div>
 
             </div>
-            
-        )    
-    }else {
+
+        )
+    } else {
         return <div className="lds-ring"><div></div><div></div><div></div><div></div></div>;
     }
 
