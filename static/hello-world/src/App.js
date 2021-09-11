@@ -30,7 +30,7 @@ import FilterComponent from "./components/filter/FilterComponent";
 import { parseByIssueType } from "./services/helper";
 //import TableComponent from "./components/table/TableComponent";
 //import FixedVersionCol from "./components/table/FixedVersionCol";
-import ReactTableComponent from "./components/table/table";
+import ReactTableComponent from "./components/table/Table";
 export default function App() {
     //usestates
     const [fixedVersions, setFixedVersions] = useState([]);
@@ -39,6 +39,9 @@ export default function App() {
     const [issues, setIssues] = useState([]);
     const [modal, setModal] = useState(false);
     const toggleM = () => setModal(!modal);
+
+
+
 
     useEffect(() => {
         async function getAllInfo() {
@@ -80,6 +83,7 @@ export default function App() {
                         </p>
                     ))}
                 </div>
+                <br></br>
                 <div>
                     {epics.map((epic, i) => (
                         <p>
@@ -89,6 +93,7 @@ export default function App() {
                         </p>
                     ))}
                 </div>
+                <br></br>
                 <div>
                     {initiatives.map((initiative, i) => (
                         <p>
@@ -98,7 +103,6 @@ export default function App() {
                         </p>
                     ))}
                 </div>
-
             </div>
 
         )

@@ -23,6 +23,13 @@ import {
 } from "reactstrap";
 
 import { useAppContext } from "../../services/contextLib";
+import Initiative from "./elements/InitiativeComponent";
+import FixedVersionTitle from "./elements/FixedVersionTitlecomponent";
+import FixedVersionCell from "./elements/FixedVersionCell";
+
+
+
+
 
 export default function ReactTableComponent() {
 
@@ -32,134 +39,61 @@ export default function ReactTableComponent() {
 
 
 
-  const data = React.useMemo(
-    () => {
-      let temp_array = [];
+  return (<div className="tablecont">
+
+    {/* Fixed versions*/}
+    <Row>
+      <div className="ui-cont">
+        <Col xs="auto">
+          <div className="InitiativeSize"></div>
+        </Col>
+        <div className="ui-cont">
+          {fixedVersions.map((fixVer, i) => (
+
+            <div>{(() => {
+              if (fixVer.isSelected == true) {
+                return (
+                  <FixedVersionTitle title={fixVer.name} start={fixVer.startDate} end={fixVer.releaseDate} />
+                );
+              }
+            })()}
+            </div>
 
 
-      initiatives.map((initiative, i) => {
-
-        //Display each initiative 
-        let element = {
-          col1: initiative.name,
-        };
-
-        epics.map((epic, j) => {
-
-          epic.parents.map((parent, l) => {
-
-            // Check if epic is linked to initiative
-            if (parent == initiative.key) {
-
-
-              fixedVersions.map((FV, k) => {
-
-                //Check if epic is linked to fixedVersion
-                if (epic.fixVersions == FV.id) {
-                  let test = FV.id;
-
-                  // check if initiative and fixV are selected
-                  if (FV.isSelected == true && initiative.isSelected == true) {
-                    console.log("Ini: ", initiative.name, "FixV: ", FV.id, "ep: ", epic.name);
-                    // Add epic to corresponding cell
-                    element.[test] = epic.name;
-                  };
-
-                };
-              });
-            };
-          });
-        });
-
-        temp_array.push(element);
-      });
-
-
-      return temp_array;
-    }
-  );
-
-
-
-  const columns = React.useMemo(
-    () => {
-      let temp_array = [{
-        Header: " ",
-        accessor: "col1"
-      }];
-
-      fixedVersions.map((FV, i) => {
-        let element = {
-          Header: FV.name,
-          accessor: FV.id
-        };
-        temp_array.push(element);
-      });
-
-
-      return temp_array;
-    }
-  );
-
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow
-  } = useTable({ columns, data });
-
-  return (
-    <div>
-
-
-      <table {...getTableProps()} style={{ border: "solid 1px black" }}>
-
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  style={{
-                    border: "solid 2px black",
-                    color: "black",
-                    fontWeight: "bold"
-                  }}
-                >
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
           ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      style={{
-                        padding: "10px",
-                        border: "solid 1px gray",
+        </div>
 
-                      }}
-                    >
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+      </div>
 
-  )
+    </Row>
 
+    {initiatives.map((initiative, i) => (
+
+      <div>{(() => {
+        if (initiative.isSelected == true) {
+          return (
+            <Row className="initRow">
+              <div className="ui-cont">
+                <Initiative title={initiative.name} />
+                {fixedVersions.map((fixVer, j) => (
+                  <Col xs="auto">
+                    {(() => {
+                      if (fixVer.isSelected == true) {
+                        return (
+                          <FixedVersionCell id={fixVer.id} title={fixVer.name} start={fixVer.startDate} end={fixVer.releaseDate} initKey={initiative.key} />
+                        );
+                      }
+                    })()}
+
+                  </Col>
+                ))}
+              </div>
+
+            </Row>
+          );
+        }
+      })()}
+      </div>
+    ))}
+  </div>)
 }
