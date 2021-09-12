@@ -42,6 +42,7 @@
   margin-left: 1em;
   color: #5e6c84;
   min-height: 15em;
+  height: 100%;
   padding: 1em;
   text-align: left;
 }
@@ -164,6 +165,14 @@
   animation-delay: -0.15s;
 }
 
+.buttonDrop {
+  margin-right: 3em;
+}
+
+.fgh {
+  background-color: rgb(0, 82, 204);
+}
+
 .dropdwnbtn {
   text-align: center;
   background-color: rgb(0, 82, 204);
@@ -171,7 +180,7 @@
   color: white;
   border-radius: 5px;
   height: 2.5em;
-  width: 5em;
+  width: 10em;
   font-family: Arial, Helvetica, sans-serif;
   margin-left: 4em;
 }
@@ -179,13 +188,9 @@
 .dropdwnbtn:hover {
   background-color: rgb(0, 92, 230);
 }
-.dropitem {
-  padding-left: 1em;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
-.dropitem:hover {
-  background-color: rgb(243, 243, 243);
+.dropItem {
+  display: flex;
+  flex-direction: row;
 }
 
 @keyframes lds-ring {
