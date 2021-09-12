@@ -53,7 +53,6 @@ export default function App() {
           setEpics(parseByIssueType(data, "Epic"));
           setInitiatives(parseByIssueType(data, "Initiative"));
           setIssues(data);
-          getEpicProgress();
         });
         await invoke("getProgressForEpics", { epicKey: epics }).then((data) =>
           setEpicsProgress(data)
