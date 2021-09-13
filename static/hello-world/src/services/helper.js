@@ -1,3 +1,4 @@
+import { view, invoke } from "@forge/bridge";
 // export function parseIssues(issuesData){
 //     var temp_array = [];
 //     for(let i = 0; i < issuesData[0].length; i++){
@@ -16,6 +17,48 @@ export function parseByIssueType(issuesData, issueTypeFilter) {
   });
   console.log(temp_array);
   return temp_array;
+}
+
+export async function progressForEpics(epics) {
+  let length = epics.length;
+  let done = 0;
+  let progress = 0;
+  let backlog = 0;
+  let epicProgress = [];
+  console.log(epics);
+  epics.map((epic, i) => {
+    invoke("getStoriesForEpics", { epicKey: epic.key }).then((data) => {
+      let epicInfo = data;
+      let done = 0;
+      let progress = 0;
+      let backlog = 0;
+      console.log(data);
+      for (let j = 0; j < epicInfo.length; j++) {
+        let statusType = epicInfo[j].fields.status.name;
+        if (statusType == "Done") {
+          done += 1;
+        } else if (
+          statusType == "Backlog" ||
+          statusType == "Selected For Development"
+        ) {
+          backlog += 1;
+        } else {
+          progress += 1;
+        }
+      }
+
+      var eProgress = {
+        key: epic.key,
+        length: epicInfo.length,
+        Done: done,
+        Progress: progress,
+        Backlog: backlog,
+      };
+      epicProgress.push(eProgress);
+    });
+  });
+  console.log(epicProgress);
+  return epicProgress;
 }
 
 /**

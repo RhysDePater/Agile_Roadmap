@@ -27,7 +27,7 @@ import { view, invoke } from "@forge/bridge";
 import "./App.css";
 // import FilterDropDown from "./components/filter/FilterDropdown"
 import FilterComponent from "./components/filter/FilterComponent";
-import { parseByIssueType } from "./services/helper";
+import { parseByIssueType, progressForEpics } from "./services/helper";
 //import TableComponent from "./components/table/TableComponent";
 //import FixedVersionCol from "./components/table/FixedVersionCol";
 import ReactTableComponent from "./components/table/Table";
@@ -40,6 +40,7 @@ export default function App() {
   const [issues, setIssues] = useState([]);
   const [modal, setModal] = useState(false);
   const toggleM = () => setModal(!modal);
+  let test = [{ key: "CRKS-15" }, { key: "CKRS-14" }];
 
   useEffect(() => {
     async function getAllInfo() {
@@ -54,9 +55,6 @@ export default function App() {
           setInitiatives(parseByIssueType(data, "Initiative"));
           setIssues(data);
         });
-        await invoke("getProgressForEpics", { epicKey: epics }).then((data) =>
-          setEpicsProgress(data)
-        );
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
       }
@@ -64,7 +62,26 @@ export default function App() {
     getAllInfo();
   }, []);
 
-  if (fixedVersions.length > 0 && issues.length > 0) {
+  useEffect(() => {
+    async function getProgressForEpics() {
+      try {
+        if (epics.length > 0) {
+          let data = await progressForEpics(epics);
+          setEpicsProgress(data);
+          console.log(epicsProgress.length);
+        }
+      } catch (e) {
+        console.log("API RENDER ERROR: " + e);
+      }
+    }
+    getProgressForEpics();
+  }, [epics]);
+
+  if (
+    fixedVersions.length > 0 &&
+    issues.length > 0 &&
+    epicsProgress.length > 0
+  ) {
     return (
       <div>
         <AppContext.Provider
