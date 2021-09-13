@@ -40,8 +40,6 @@ export default function App() {
   const [issues, setIssues] = useState([]);
   const [modal, setModal] = useState(false);
   const toggleM = () => setModal(!modal);
-  let test = [{ key: "CRKS-15" }, { key: "CKRS-14" }];
-  let sortedInitiatives = [];
 
   useEffect(() => {
     async function getAllInfo() {
@@ -67,14 +65,9 @@ export default function App() {
     async function sortInitiatives() {
       try {
         if (initiatives.length > 0) {
-          sortedInitiatives = initiatives;
-          console.log(sortedInitiatives);
-          sortedInitiatives = sortedInitiatives.sort(function (a, b) {
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
+          initiatives = initiatives.sort(function (a, b) {
             return new Date(a.dueDate) - new Date(b.dueDate);
           });
-          console.log(sortedInitiatives);
         }
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
@@ -111,7 +104,6 @@ export default function App() {
     issues.length > 0 &&
     epicsProgress.length > 0
   ) {
-    console.log(sortedInitiatives);
     return (
       <div>
         <AppContext.Provider
