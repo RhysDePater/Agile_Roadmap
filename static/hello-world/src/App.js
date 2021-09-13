@@ -66,8 +66,17 @@ export default function App() {
     async function getProgressForEpics() {
       try {
         if (epics.length > 0) {
-          setEpicsProgress(await progressForEpics(epics));
-          console.log(epicsProgress.length);
+          let epicProgress = [];
+          epics.map((epic, i) => {
+            invoke("getStoriesForEpics", { epicKey: epic.key }).then((data) => {
+              progressForEpics(data, epic.key).then((data) => {
+                epicProgress.push(data);
+                if (epics.length == epicProgress.length) {
+                  setEpicsProgress(epicProgress);
+                }
+              });
+            });
+          });
         }
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
@@ -124,7 +133,17 @@ export default function App() {
           ))}
         </div>
         <br></br>
-        {JSON.stringify(epicsProgress)}
+        <div>
+          {epicsProgress.map((epic, i) => (
+            <p>
+              {Object.keys(epic).map((key, j) => (
+                <span>
+                  {key}: {epic[key]}
+                </span>
+              ))}
+            </p>
+          ))}
+        </div>
         <br></br>
         <div>
           {initiatives.map((initiative, i) => (

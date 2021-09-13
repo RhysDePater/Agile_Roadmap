@@ -19,45 +19,32 @@ export function parseByIssueType(issuesData, issueTypeFilter) {
   return temp_array;
 }
 
-export async function progressForEpics(epics) {
-  let length = epics.length;
+export async function progressForEpics(epic, key) {
   let done = 0;
   let progress = 0;
   let backlog = 0;
-  let epicProgress = [];
-  console.log(epics);
-  epics.map((epic, i) => {
-    invoke("getStoriesForEpics", { epicKey: epic.key }).then((data) => {
-      let done = 0;
-      let progress = 0;
-      let backlog = 0;
-      console.log(data);
-      data.map((epicInfo, j) => {
-        let statusType = epicInfo.fields.status.name;
-        if (statusType == "Done") {
-          done += 1;
-        } else if (
-          statusType == "Backlog" ||
-          statusType == "Selected For Development"
-        ) {
-          backlog += 1;
-        } else {
-          progress += 1;
-        }
-      });
-
-      var eProgress = {
-        key: epic.key,
-        length: data.length,
-        Done: done,
-        Progress: progress,
-        Backlog: backlog,
-      };
-      epicProgress.push(eProgress);
-    });
+  epic.map((epicInfo, j) => {
+    let statusType = epicInfo.fields.status.name;
+    if (statusType == "Done") {
+      done += 1;
+    } else if (
+      statusType == "Backlog" ||
+      statusType == "Selected For Development"
+    ) {
+      backlog += 1;
+    } else {
+      progress += 1;
+    }
   });
-  console.log(epicProgress);
-  return epicProgress;
+
+  var eProgress = {
+    key: key,
+    length: epic.length,
+    Done: done,
+    Progress: progress,
+    Backlog: backlog,
+  };
+  return eProgress;
 }
 
 /**
