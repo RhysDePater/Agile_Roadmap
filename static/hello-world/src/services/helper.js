@@ -28,13 +28,12 @@ export async function progressForEpics(epics) {
   console.log(epics);
   epics.map((epic, i) => {
     invoke("getStoriesForEpics", { epicKey: epic.key }).then((data) => {
-      let epicInfo = data;
       let done = 0;
       let progress = 0;
       let backlog = 0;
       console.log(data);
-      for (let j = 0; j < epicInfo.length; j++) {
-        let statusType = epicInfo[j].fields.status.name;
+      data.map((epicInfo, j) => {
+        let statusType = epicInfo.fields.status.name;
         if (statusType == "Done") {
           done += 1;
         } else if (
@@ -45,11 +44,11 @@ export async function progressForEpics(epics) {
         } else {
           progress += 1;
         }
-      }
+      });
 
       var eProgress = {
         key: epic.key,
-        length: epicInfo.length,
+        length: data.length,
         Done: done,
         Progress: progress,
         Backlog: backlog,

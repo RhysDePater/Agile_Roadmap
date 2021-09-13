@@ -66,8 +66,7 @@ export default function App() {
     async function getProgressForEpics() {
       try {
         if (epics.length > 0) {
-          let data = await progressForEpics(epics);
-          setEpicsProgress(data);
+          setEpicsProgress(await progressForEpics(epics));
           console.log(epicsProgress.length);
         }
       } catch (e) {
