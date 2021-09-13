@@ -62,7 +62,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    async function sortInitiatives() {
+    function sortInitiatives() {
       try {
         if (initiatives.length > 0) {
           initiatives = initiatives.sort(function (a, b) {
