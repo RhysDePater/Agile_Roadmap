@@ -75,6 +75,7 @@ export async function fetchIssueKeys(projectKey) {
                 "key",
                 "inwardIssue"
               ),
+              dueDate: data.fields.duedate,
               isSelected: true,
             };
           default:
