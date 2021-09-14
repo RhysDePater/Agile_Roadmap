@@ -65,7 +65,6 @@ export default function App() {
     function sortInitiatives() {
       try {
         if (initiatives.length > 0) {
-          
           const temp_array = initiatives.sort(function (a, b) {
             return new Date(a.dueDate) - new Date(b.dueDate);
           });
@@ -118,9 +117,12 @@ export default function App() {
             setInitiatives,
             epics,
             setEpics,
+            epicsProgress,
+            setEpicsProgress
           }}
         >
           <FilterComponent />
+
           <ReactTableComponent />
         </AppContext.Provider>
 

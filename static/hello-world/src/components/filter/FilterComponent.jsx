@@ -35,8 +35,6 @@ export default function FilterComponent() {
 
 
             {FilterDropdown(fixedVersions, setFixedVersions, "Realises")}
-
-
             {FilterDropdown(initiatives, setInitiatives, "Initiative")}
 
         </div>
