@@ -2,7 +2,8 @@
 # You should customize this list as applicable to your project.
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
-
+static/hello-world/build/
+manifest.yml
 # Node artifact files
 node_modules/
 dist/
@@ -47,4 +48,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+
 

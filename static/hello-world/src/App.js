@@ -65,9 +65,11 @@ export default function App() {
     function sortInitiatives() {
       try {
         if (initiatives.length > 0) {
-          initiatives = initiatives.sort(function (a, b) {
+          
+          const temp_array = initiatives.sort(function (a, b) {
             return new Date(a.dueDate) - new Date(b.dueDate);
           });
+          setInitiatives(temp_array);
         }
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
@@ -119,7 +121,6 @@ export default function App() {
           }}
         >
           <FilterComponent />
-
           <ReactTableComponent />
         </AppContext.Provider>
 

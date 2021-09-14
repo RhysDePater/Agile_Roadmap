@@ -4,7 +4,7 @@ modules:
       resource: main
       resolver:
         function: resolver
-      title: rhys-ui
+      title: shaun-ui
   function:
     - key: resolver
       handler: index.handler
@@ -13,7 +13,7 @@ resources:
     path: static/hello-world/build
 app:
   id: ari:cloud:ecosystem::app/764383b6-ccba-42b1-bc1b-52dde1f02e3f
-  name: rhys-UI
+  name: shaun-UI
 permissions:
   scopes:
     - manage:jira-project
