@@ -18,31 +18,39 @@ export function parseByIssueType(issuesData, issueTypeFilter) {
   return temp_array;
 }
 
-export function progressForInitiatives(initiatives, epics){
+export function progressForInitiatives(initiatives, epics, fixedVersions){
   var initiativesProgress = [];
   initiatives.map((init, i) => {
+    let amountOfEpics = 0;
     let done = 0;
     let progress = 0;
     let backlog = 0;  
     init.childrens.map((epicKey, j) => {
       epics.map((epic, k) => {
         if(epicKey == epic.key){
-          if (epic.status == "Done") {
-            done += 1;
-          } else if (
-            epic.status == "Backlog" ||
-            epic.status == "Selected For Development"
-          ) {
-            backlog += 1;
-          } else {
-            progress += 1;
-          }
+          fixedVersions.map((version, v)=> {
+              if(epic.fixVersions[0] == version.id && version.isSelected == true){
+                console.log(epic.fixVersions[0] + "==" + version.id)
+                console.log(version.isSelected)                
+                if (epic.status == "Done") {
+                  done += 1;
+                } else if (
+                  epic.status == "Backlog" ||
+                  epic.status == "Selected For Development"
+                ) {
+                  backlog += 1;
+                } else {
+                  progress += 1;
+                }
+                amountOfEpics+=1      
+              }                      
+          })  
         }
       })
     })
     var iProgress = {
       key: init.key,
-      length: init.childrens.length,
+      length: amountOfEpics,
       Done: done,
       Progress: progress,
       Backlog: backlog,

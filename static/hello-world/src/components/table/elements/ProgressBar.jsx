@@ -15,8 +15,8 @@ export function ProgressBar(size, done, progress, backlog) {
 
     return (
         <div className="ProgBar"><Progress multi>
-            <Progress bar className="progressBlue" value={done * number}> {done}</Progress>
-            <Progress bar className="progressGreen" color="success" value={progress * number}> {progress}</Progress>
+            <Progress bar className="progressGreen" color="success" value={done * number}> {done}</Progress>
+            <Progress bar className="progressBlue"  value={progress * number}> {progress}</Progress>
             <Progress bar className="progressGrey" value={backlog * number}> {backlog}</Progress>
         </Progress></div>
 

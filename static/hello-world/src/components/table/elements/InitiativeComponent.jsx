@@ -27,9 +27,9 @@ export default function Initiative(props) {
                                         return (
                                             <div>
                                                 {ProgressBar(iProgress.length, iProgress.Done, iProgress.Progress, iProgress.Backlog)}
-                                                <span className="storieblue"> Done</span>
+                                                <span className="storieGreen"> Done</span>
                                                 <span> / </span>
-                                                <span className="storieGreen"> in Progress</span>
+                                                <span className="storieblue"> in Progress</span>
                                                 <span> / </span>
                                                 <span className="storieGrey"> Backlog</span>
 

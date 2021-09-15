@@ -57,9 +57,9 @@ export default function FixedVersionCell(props) {
                                                                                                     <p>Number of Stories : {eProgress.length}</p>
                                                                                                     {/* <ProgressBarCol length={eProgress.length} done={eProgress.Done} progress={eProgress.Progress} backlog={eProgress.Backlog} /> */}
                                                                                                     {ProgressBar(eProgress.length, eProgress.Done, eProgress.Progress, eProgress.Backlog)}
-                                                                                                    <span className="storieblue"> Done</span>
+                                                                                                    <span className="storieGreen"> Done</span>
                                                                                                     <span> / </span>
-                                                                                                    <span className="storieGreen"> in Progress</span>
+                                                                                                    <span className="storieblue"> in Progress</span>
                                                                                                     <span> / </span>
                                                                                                     <span className="storieGrey"> Backlog</span>
 

@@ -12,8 +12,8 @@ resources:
   - key: main
     path: static/hello-world/build
 app:
-  id: ari:cloud:ecosystem::app/cdd1af4e-0bef-4a64-9a35-e8748ac23532
-  name: rhys-UI
+    id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
+    name: rhys-UI
 permissions:
   scopes:
     - manage:jira-project
