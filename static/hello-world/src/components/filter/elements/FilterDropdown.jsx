@@ -24,7 +24,6 @@ import {
 export default function FilterDropdown(arrayToFilter, setArrayToFilter, filter) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
-    console.log(arrayToFilter);
 
     return (
         <div>

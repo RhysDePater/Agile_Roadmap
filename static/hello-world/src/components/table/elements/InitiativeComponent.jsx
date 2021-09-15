@@ -4,6 +4,8 @@ import { useTable } from "react-table";
 import {
     Col
 } from "reactstrap";
+import { useAppContext } from "../../../services/contextLib";
+import {ProgressBar, LoadingBar } from "./ProgressBar";
 
 
 export default function Initiative(props) {

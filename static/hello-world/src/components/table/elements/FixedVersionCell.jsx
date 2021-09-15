@@ -5,7 +5,7 @@ import {
     Col, Progress
 } from "reactstrap";
 
-import ProgressBar from "./ProgressBar";
+import {ProgressBar} from "./ProgressBar";
 import { useAppContext } from "../../../services/contextLib";
 
 

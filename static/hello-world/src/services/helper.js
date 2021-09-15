@@ -15,8 +15,42 @@ export function parseByIssueType(issuesData, issueTypeFilter) {
       temp_array.push(issue);
     }
   });
-  console.log(temp_array);
   return temp_array;
+}
+
+export function progressForInitiatives(initiatives, epics){
+  var initiativesProgress = [];
+  initiatives.map((init, i) => {
+    let done = 0;
+    let progress = 0;
+    let backlog = 0;  
+    init.childrens.map((epicKey, j) => {
+      epics.map((epic, k) => {
+        if(epicKey == epic.key){
+          if (epic.status == "Done") {
+            done += 1;
+          } else if (
+            epic.status == "Backlog" ||
+            epic.status == "Selected For Development"
+          ) {
+            backlog += 1;
+          } else {
+            progress += 1;
+          }
+        }
+      })
+    })
+    var iProgress = {
+      key: init.key,
+      length: init.childrens.length,
+      Done: done,
+      Progress: progress,
+      Backlog: backlog,
+    };
+    initiativesProgress.push(iProgress)
+  })
+  console.log(initiativesProgress)
+  return initiativesProgress;
 }
 
 export async function progressForEpics(epic, key) {

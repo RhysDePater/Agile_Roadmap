@@ -50,6 +50,7 @@ export async function fetchIssueKeys(projectKey) {
                 "outwardIssue"
               ), //parents
               childrens: [],
+              status: data.fields.status.name
             };
           case "Story":
             return {

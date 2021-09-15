@@ -10,7 +10,7 @@ import { useAppContext } from "../../../services/contextLib";
 
 
 
-export default function ProgressBar(size, done, progress, backlog) {
+export function ProgressBar(size, done, progress, backlog) {
     let number = 100 / size;
 
     return (
@@ -19,6 +19,15 @@ export default function ProgressBar(size, done, progress, backlog) {
             <Progress bar className="progressGreen" color="success" value={progress * number}> {progress}</Progress>
             <Progress bar className="progressGrey" value={backlog * number}> {backlog}</Progress>
         </Progress></div>
+
+    )
+}
+
+export function LoadingBar(){
+    return(
+        <div>
+            <Progress animated value="100">Loading...</Progress>
+        </div>
 
     )
 }

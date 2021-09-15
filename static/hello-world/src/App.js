@@ -31,12 +31,14 @@ import { parseByIssueType, progressForEpics } from "./services/helper";
 //import TableComponent from "./components/table/TableComponent";
 //import FixedVersionCol from "./components/table/FixedVersionCol";
 import ReactTableComponent from "./components/table/Table";
+import { progressForInitiatives } from "./services/helper";
 export default function App() {
   //usestates
   const [fixedVersions, setFixedVersions] = useState([]);
   const [initiatives, setInitiatives] = useState([]);
   const [epics, setEpics] = useState([]);
   const [epicsProgress, setEpicsProgress] = useState([]);
+  const [initiativesProgress, setInitiativeProgress] = useState([]);
   const [issues, setIssues] = useState([]);
   const [modal, setModal] = useState(false);
   const toggleM = () => setModal(!modal);
@@ -100,10 +102,26 @@ export default function App() {
     getProgressForEpics();
   }, [epics]);
 
+  useEffect(() => {
+    function getInitiativesProgress(){
+      try{
+        if(initiatives.length > 0 && epics.length > 0){
+          const temp_array = progressForInitiatives(initiatives, epics);
+          setInitiativeProgress(temp_array);
+        }      
+  
+      }catch(e){
+        console.log("API ERROR: " + e);
+      }
+    }
+    getInitiativesProgress();
+  }, [initiatives, epics])
+
   if (
     fixedVersions.length > 0 &&
     issues.length > 0 &&
-    epicsProgress.length > 0
+    epicsProgress.length > 0 &&
+    initiativesProgress.length > 0
   ) {
     return (
       <div>
@@ -162,6 +180,20 @@ export default function App() {
           ))}
         </div>
         <br></br>
+        <br></br>
+        <div>
+          {initiativesProgress.map((init, i) => (
+            <p>
+              {Object.keys(init).map((key, j) => (
+                <span>
+                  {key}: {init[key]}
+                </span>
+              ))}
+            </p>
+          ))}
+        </div>
+        <br></br>
+
         <div>
           {initiatives.map((initiative, i) => (
             <p>

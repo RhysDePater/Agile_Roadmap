@@ -12,8 +12,8 @@ resources:
   - key: main
     path: static/hello-world/build
 app:
-  id: ari:cloud:ecosystem::app/764383b6-ccba-42b1-bc1b-52dde1f02e3f
-  name: shaun-UI
+    id: ari:cloud:ecosystem::app/2bafad86-008a-44e1-af2a-73279f7b4ddb
+    name: shaun-UI
 permissions:
   scopes:
     - manage:jira-project
