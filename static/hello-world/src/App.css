@@ -99,6 +99,14 @@
 .initRow {
   margin-bottom: 1em;
 }
+.iniTitle {
+  padding-top: 1em;
+  font-size: 1.2em;
+}
+.initiativeBar {
+  width: 90%;
+  margin-left: 5%;
+}
 
 .epic {
   width: 23em;
