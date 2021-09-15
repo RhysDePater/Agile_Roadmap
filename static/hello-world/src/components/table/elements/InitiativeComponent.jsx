@@ -15,6 +15,7 @@ export default function Initiative(props) {
             <div className="initiativeBox">
                 <div className="intiative">
                     {props.title}
+                    <div className="pbar">
                     {initiativesProgress.map((iProgress, i) => (
                         <div>
                             {(() => {
@@ -41,6 +42,7 @@ export default function Initiative(props) {
                             })()}
                         </div>
                     ))}
+                    </div>
                 </div>
             </div>
 
