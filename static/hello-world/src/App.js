@@ -103,19 +103,18 @@ export default function App() {
   }, [epics]);
 
   useEffect(() => {
-    function getInitiativesProgress(){
-      try{
-        if(initiatives.length > 0 && epics.length > 0){
+    function getInitiativesProgress() {
+      try {
+        if (initiatives.length > 0 && epics.length > 0) {
           const temp_array = progressForInitiatives(initiatives, epics);
           setInitiativeProgress(temp_array);
-        }      
-  
-      }catch(e){
+        }
+      } catch (e) {
         console.log("API ERROR: " + e);
       }
     }
     getInitiativesProgress();
-  }, [initiatives, epics])
+  }, [initiatives, epics]);
 
   if (
     fixedVersions.length > 0 &&
@@ -136,7 +135,9 @@ export default function App() {
             epics,
             setEpics,
             epicsProgress,
-            setEpicsProgress
+            setEpicsProgress,
+            initiativesProgress,
+            setInitiativeProgress,
           }}
         >
           <FilterComponent />
