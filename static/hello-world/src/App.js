@@ -43,6 +43,7 @@ export default function App() {
   const [modal, setModal] = useState(false);
   const toggleM = () => setModal(!modal);
 
+  //get all issue info via api calls
   useEffect(() => {
     async function getAllInfo() {
       try {
@@ -63,6 +64,7 @@ export default function App() {
     getAllInfo();
   }, []);
 
+  //sort initiatives in order of due date - refresh on initiative change
   useEffect(() => {
     function sortInitiatives() {
       try {
@@ -79,6 +81,7 @@ export default function App() {
     sortInitiatives();
   }, [initiatives]);
 
+  //get progress of all epics - refresh on epic change
   useEffect(() => {
     async function getProgressForEpics() {
       try {
@@ -102,6 +105,7 @@ export default function App() {
     getProgressForEpics();
   }, [epics]);
 
+  //get progress of initiatives - refresh when initiative, epics or fixedversions value changes
   useEffect(() => {
     function getInitiativesProgress() {
       try {

@@ -74,7 +74,7 @@ export default function ReactTableComponent() {
           return (
             <Row className="initRow">
               <div className="ui-cont">
-                <Initiative title={initiative.name} iKey={initiative.key}/>
+                <Initiative title={initiative.name} iKey={initiative.key} dueDate={initiative.dueDate}/>
                 {fixedVersions.map((fixVer, j) => (
                   <Col xs="auto">
                     {(() => {

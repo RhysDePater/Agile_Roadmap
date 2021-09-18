@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTable } from "react-table";
-
+import {router} from "@forge/bridge"
 import {
     Col, Progress
 } from "reactstrap";
@@ -22,7 +22,7 @@ export default function FixedVersionCell(props) {
 
 
                 {epic.fixVersions.map((eFV, p) => (
-                    <div>
+                    <div onClick={(() => router.open(`/browse/${epic.key}`))}>
                         {(() => {
                             if (eFV == props.id) {
                                 return (

@@ -32,6 +32,28 @@
 }
 
 /**
+ * 
+ * @param {*} jsonArray issueLinks array to check for values issue key and the relative state
+ * @returns array of initiative childrens if they are not a a blocked state
+ */
+export function getChildIfNotBlocked(jsonArray){
+  const status = getSingleValueFromJsonArray(jsonArray,"name", "type");
+  const childKey = getSingleValueFromJsonArray(jsonArray, "key", "inwardIssue")
+  let toReturn = [];
+  try{
+    status.map((state , i) => {
+      if(state == "Blocks"){
+      }else{   
+        toReturn.push(childKey[i])
+      }    
+    })
+  }catch(e){
+    console.log(e)
+  }
+  return toReturn
+}
+
+/**
    * 
    * @param {*} jsonValue JSON value to parse
    * @returns returns value is exists

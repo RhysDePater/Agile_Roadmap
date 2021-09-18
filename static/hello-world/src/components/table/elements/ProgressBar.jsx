@@ -31,3 +31,11 @@ export function LoadingBar(){
 
     )
 }
+
+export function EmptyBar(){
+    return(
+        <div className="ProgBar">
+            <Progress bar className="progressGrey" value="100">No Epics exist</Progress>
+        </div>
+    )
+}

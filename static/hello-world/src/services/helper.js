@@ -1,13 +1,12 @@
-import { view, invoke } from "@forge/bridge";
-// export function parseIssues(issuesData){
-//     var temp_array = [];
-//     for(let i = 0; i < issuesData[0].length; i++){
-//         var element = issuesData[0][i];
-//         temp_array.push(element);
-//     }
-//     return temp_array;
-// }
+import { view, invoke, router } from "@forge/bridge";
 
+
+/**
+ * 
+ * @param {*} issuesData data to parse through
+ * @param {*} issueTypeFilter issueType to return
+ * @returns json array of issues filtered by issue type
+ */
 export function parseByIssueType(issuesData, issueTypeFilter) {
   var temp_array = [];
   issuesData.map((issue, i) => {
@@ -18,20 +17,36 @@ export function parseByIssueType(issuesData, issueTypeFilter) {
   return temp_array;
 }
 
+/**
+ * 
+ * @param {*} initiatives initiatives json array
+ * @param {*} epics epics json array
+ * @param {*} fixedVersions fix versions json array
+ * @returns json array of progress for initiatives
+ */
 export function progressForInitiatives(initiatives, epics, fixedVersions){
+  //establish array ot return
   var initiativesProgress = [];
+  //map thourhg all initiatives
   initiatives.map((init, i) => {
+    //establish values to return
     let amountOfEpics = 0;
     let done = 0;
     let progress = 0;
     let backlog = 0;  
+    //map through children of each initiative
     init.childrens.map((epicKey, j) => {
+      //map through all the epics
       epics.map((epic, k) => {
+        //if epics are chidlren of initiative
         if(epicKey == epic.key){
+          //map fixed versions
           fixedVersions.map((version, v)=> {
+            //if children exist within a fixed versions and the version is currently displayed
               if(epic.fixVersions[0] == version.id && version.isSelected == true){
                 console.log(epic.fixVersions[0] + "==" + version.id)
                 console.log(version.isSelected)                
+                //add value based on value progress
                 if (epic.status == "Done") {
                   done += 1;
                 } else if (
@@ -42,12 +57,14 @@ export function progressForInitiatives(initiatives, epics, fixedVersions){
                 } else {
                   progress += 1;
                 }
+                //add to total amount of childrens 
                 amountOfEpics+=1      
               }                      
           })  
         }
       })
     })
+    //add values to json array
     var iProgress = {
       key: init.key,
       length: amountOfEpics,
@@ -55,6 +72,7 @@ export function progressForInitiatives(initiatives, epics, fixedVersions){
       Progress: progress,
       Backlog: backlog,
     };
+    //push to array to return
     initiativesProgress.push(iProgress)
   })
   console.log(initiativesProgress)
@@ -105,3 +123,4 @@ export async function fetchAllIssueInfo(epicKeys, issues) {
   }
   return [issues];
 }
+

@@ -71,10 +71,8 @@ export async function fetchIssueKeys(projectKey) {
               issueType: data.fields.issuetype.name,
               fixVersions: [],
               parents: [],
-              childrens: apiHelper.getSingleValueFromJsonArray(
-                data.fields.issuelinks,
-                "key",
-                "inwardIssue"
+              childrens: apiHelper.getChildIfNotBlocked(
+                data.fields.issuelinks
               ),
               dueDate: data.fields.duedate,
               isSelected: true,
