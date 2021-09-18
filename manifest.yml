@@ -4,7 +4,7 @@ modules:
       resource: main
       resolver:
         function: resolver
-      title: Agile_Roadmap_Shared
+      title: rhys-UI
   function:
     - key: resolver
       handler: index.handler
@@ -12,8 +12,8 @@ resources:
   - key: main
     path: static/hello-world/build
 app:
-    id: ari:cloud:ecosystem::app/8bb2cf23-32d5-46cc-8066-067df06efe2d
-    name: shaun-UI
+  id: ari:cloud:ecosystem::app/93ee2510-c286-4fa3-b6e8-efa1f9aee6e9
+  name: rhys-UI
 permissions:
   scopes:
     - manage:jira-project

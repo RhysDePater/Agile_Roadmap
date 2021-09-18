@@ -13,7 +13,7 @@ export default function Initiative(props) {
     return (
         <Col xs="auto">
             <div className="initiativeBox">
-                <div className="intiative" onclick={(()=> router.open(`/browse/${props.iKey}`))}>
+                <div className="intiative" onClick={(()=> router.open(`/browse/${props.iKey}`))}>
                     <div className="iniTitle">{props.title}</div>
 
                     <div className="pbar">
