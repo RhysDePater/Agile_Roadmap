@@ -43,7 +43,13 @@ export default function FixedVersionCell(props) {
                                                                         </p>
                                                                     </div>
 
+
+                                                                    {(() => {
+                                                                    if(epicsProgress.length>0)
+                                                                    {
+                                                                    return(
                                                                     <div className="pbar">
+
                                                                         {epicsProgress.map((eProgress, i) => (
                                                                             <div>
                                                                                 {(() => {
@@ -76,8 +82,19 @@ export default function FixedVersionCell(props) {
                                                                                 })()}
                                                                             </div>
                                                                         ))}
+                                                                    
                                                                     </div>
-
+                                                                    )}else{
+                                                                        return (
+                                                                            <div className="lds-ring">
+                                                                              <div></div>
+                                                                              <div></div>
+                                                                              <div></div>
+                                                                              <div></div>
+                                                                            </div>
+                                                                          );
+                                                                    }
+                                                                    })()}
                                                                     <p className="epicNum">{epic.key}</p>
                                                                 </div>
                                                             </div>

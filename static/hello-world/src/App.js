@@ -109,8 +109,16 @@ export default function App() {
   useEffect(() => {
     function getInitiativesProgress() {
       try {
-        if (initiatives.length > 0 && epics.length > 0 && fixedVersions.length > 0) {
-          const temp_array = progressForInitiatives(initiatives, epics, fixedVersions);
+        if (
+          initiatives.length > 0 &&
+          epics.length > 0 &&
+          fixedVersions.length > 0
+        ) {
+          const temp_array = progressForInitiatives(
+            initiatives,
+            epics,
+            fixedVersions
+          );
           setInitiativeProgress(temp_array);
         }
       } catch (e) {
@@ -120,12 +128,7 @@ export default function App() {
     getInitiativesProgress();
   }, [initiatives, epics, fixedVersions]);
 
-  if (
-    fixedVersions.length > 0 &&
-    issues.length > 0 &&
-    epicsProgress.length > 0 &&
-    initiativesProgress.length > 0
-  ) {
+  if (fixedVersions.length > 0 && issues.length > 0) {
     return (
       <div>
         <AppContext.Provider
