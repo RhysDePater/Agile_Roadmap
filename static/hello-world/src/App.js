@@ -56,7 +56,7 @@ export default function App() {
         let startAt = 0;
         let maxResults = 100;
         let tempIssues = [];
-        while (size >= maxResults) {
+        while (size >= maxResults || size > 0) {
           await invoke("getIssues", {
             projectKey: key,
             start: startAt,
