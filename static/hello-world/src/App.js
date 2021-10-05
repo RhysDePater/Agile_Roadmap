@@ -52,19 +52,23 @@ export default function App() {
         await invoke("getFixedVersions", { projectKey: key }).then((data) =>
           setFixedVersions(data)
         );
-        let size = 1;
+        let size = 100;
         let startAt = 0;
+        let maxResults = 100;
         let tempIssues = [];
-        while (size > 0) {
-          await invoke("getIssues", { projectKey: key, start: startAt }).then(
-            (data) => {
-              data.map((issue) => {
-                tempIssues.push(issue);
-              });
-              size = data.length;
-              startAt += size;
-            }
-          );
+        while (size >= maxResults) {
+          await invoke("getIssues", {
+            projectKey: key,
+            start: startAt,
+            max: maxResults,
+          }).then((data) => {
+            data.map((issue) => {
+              tempIssues.push(issue);
+            });
+            size = data.length;
+            console.log(size);
+            startAt += size;
+          });
         }
         setEpics(parseByIssueType(tempIssues, "Epic"));
         setInitiatives(parseByIssueType(tempIssues, "Initiative"));
@@ -100,7 +104,9 @@ export default function App() {
         if (epics.length > 0) {
           let epicProgress = [];
           epics.map((epic, i) => {
-            invoke("getStoriesForEpics", { epicKey: epic.key }).then((data) => {
+            invoke("getStoriesForEpics", {
+              epicKey: epic.key,
+            }).then((data) => {
               progressForEpics(data, epic.key).then((data) => {
                 epicProgress.push(data);
                 if (epics.length == epicProgress.length) {

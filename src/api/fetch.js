@@ -25,11 +25,11 @@ export async function fetchStoriesForEpic(epic) {
  * @param {*} projectKey which project to fetch issues from
  * @returns issues values; key, issuetype, label
  */
-export async function fetchIssueKeys(projectKey, startAt) {
+export async function fetchIssueKeys(projectKey, startAt, maxResults) {
   const res = await api
     .asApp()
     .requestJira(
-      route`/rest/api/3/search?jql=project=${projectKey}&startAt=${startAt}`
+      route`/rest/api/3/search?jql=project=${projectKey}&startAt=${startAt}&maxResults=${maxResults}`
     )
     .then((res) => res.json())
     .then((res) =>
