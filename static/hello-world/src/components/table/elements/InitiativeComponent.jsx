@@ -13,7 +13,7 @@ export default function Initiative(props) {
     return (
         <Col xs="auto">
             <div className="initiativeBox">
-                <div className="intiative" onClick={(()=> router.open(`/browse/${props.iKey}`))}>
+                <div className="initiative" onClick={(()=> router.open(`/browse/${props.iKey}`))}>
                     <div className="iniTitle">{props.title}</div>
 
                     <div className="pbar">
@@ -44,12 +44,6 @@ export default function Initiative(props) {
                                                 <div>
                                                     <div className="initiativeBar">{EmptyBar()}</div>
 
-                                                    <span className="storieGreen"> Done</span>
-                                                    <span> / </span>
-                                                    <span className="storieblue"> in Progress</span>
-                                                    <span> / </span>
-                                                    <span className="storieGrey"> Backlog</span>
-
                                                 </div>
                                             )
                                         };
@@ -58,9 +52,9 @@ export default function Initiative(props) {
                             </div>
                         ))}
                     </div>
-                    <div>
-                        <p className="epicNum">{props.dueDate}</p>
-                        <p className="epicNum">{props.iKey}</p>
+                    <div className="InititivetextCont">
+                        <div className="initiativeDueDate"><p className="initDueDate">{props.dueDate}</p></div>
+                        <div className="initiativeKey"><p className="initKey">{props.iKey}</p></div>
 
                     </div>
                     

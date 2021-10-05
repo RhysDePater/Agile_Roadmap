@@ -33,18 +33,29 @@
 .tablecont {
   overflow: auto;
   white-space: nowrap;
+  font-size: small;
 }
 
 .fixedVersion {
-  width: 25em;
+  width: 24em;
   display: block;
   background-color: rgb(244, 245, 247);
   margin-left: 1em;
   color: #5e6c84;
-  min-height: 15em;
+  min-height: 13em;
   height: 100%;
   padding: 1em;
   text-align: left;
+}
+.fixSize {
+  height: auto;
+  width: 24em;
+  display: block;
+  background-color: rgb(244, 245, 247);
+  margin-left: 1em;
+  color: #5e6c84;
+  text-align: left;
+  padding: 1em;
 }
 .fadedTitleCell {
   opacity: 0.4;
@@ -70,31 +81,25 @@
   margin-top: 1em;
 }
 .InitiativeSize {
-  width: 28em;
+  width: 26em;
   height: 1em;
 }
-.fixSize {
-  height: auto;
-  width: 25em;
-  display: block;
-  background-color: rgb(244, 245, 247);
-  margin-left: 1em;
-  color: #5e6c84;
-  text-align: left;
-  padding: 1em;
-}
-.intiative {
+
+.initiative {
   min-width: 20em;
-  min-height: 8em;
+  min-height: 7em;
   align-content: center;
-  margin: 4em;
+  cursor: pointer;
+  margin: 3em;
   border-radius: 5px;
   line-height: 2em;
   text-align: center;
-  font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(248, 248, 248);
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 10%), 0 2px 10px 0 rgb(0 0 0 / 10%);
+}
+.initiative:hover{
+  background-color: rgb(233, 233, 233);
 }
 .initRow {
   margin-bottom: 1em;
@@ -102,6 +107,7 @@
 .iniTitle {
   padding-top: 1em;
   font-size: 1.2em;
+  font-weight: bold;
 }
 .initiativeBar {
   width: 90%;
@@ -109,8 +115,9 @@
 }
 
 .epic {
-  width: 23em;
+  width: 98%;
   min-height: 9em;
+  cursor: pointer;
   padding: 1em;
   margin-top: 1em;
   background-color: rgb(255, 255, 255);
@@ -231,6 +238,81 @@
 .storieGrey {
   font-weight: bold;
 }
+
+.InititivetextCont{
+  display: flex;
+  padding: 0.5em;
+}
+
+.initiativeDueDate, .initiativeKey{
+  width: 50%;
+}
+.initKey{
+  text-align: right;
+  margin-right: 0.3em;
+}
+.initDueDate{
+  text-align: left;
+  margin-left: 0.3em;
+}
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: rgb(0, 92, 230);
+  font-size: 7px;
+  margin: 40px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
 
 @keyframes lds-ring {
   0% {

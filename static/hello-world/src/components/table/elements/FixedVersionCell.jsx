@@ -86,12 +86,7 @@ export default function FixedVersionCell(props) {
                                                                     </div>
                                                                     )}else{
                                                                         return (
-                                                                            <div className="lds-ring">
-                                                                              <div></div>
-                                                                              <div></div>
-                                                                              <div></div>
-                                                                              <div></div>
-                                                                            </div>
+                                                                            <div class="loader">Loading...</div>
                                                                           );
                                                                     }
                                                                     })()}
