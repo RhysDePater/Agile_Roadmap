@@ -25,11 +25,11 @@ export async function fetchStoriesForEpic(epic) {
  * @param {*} projectKey which project to fetch issues from
  * @returns issues values; key, issuetype, label
  */
-export async function fetchIssueKeys(projectKey) {
+export async function fetchIssueKeys(projectKey, startAt) {
   const res = await api
     .asApp()
     .requestJira(
-      route`/rest/api/3/search?jql=project=${projectKey}&maxResults=200`
+      route`/rest/api/3/search?jql=project=${projectKey}&startAt=${startAt}`
     )
     .then((res) => res.json())
     .then((res) =>
@@ -50,7 +50,7 @@ export async function fetchIssueKeys(projectKey) {
                 "outwardIssue"
               ), //parents
               childrens: [],
-              status: data.fields.status.name
+              status: data.fields.status.name,
             };
           case "Story":
             return {
@@ -71,9 +71,7 @@ export async function fetchIssueKeys(projectKey) {
               issueType: data.fields.issuetype.name,
               fixVersions: [],
               parents: [],
-              childrens: apiHelper.getChildIfNotBlocked(
-                data.fields.issuelinks
-              ),
+              childrens: apiHelper.getChildIfNotBlocked(data.fields.issuelinks),
               dueDate: data.fields.duedate,
               isSelected: true,
             };

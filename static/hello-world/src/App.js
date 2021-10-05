@@ -52,11 +52,23 @@ export default function App() {
         await invoke("getFixedVersions", { projectKey: key }).then((data) =>
           setFixedVersions(data)
         );
-        await invoke("getIssues", { projectKey: key }).then((data) => {
-          setEpics(parseByIssueType(data, "Epic"));
-          setInitiatives(parseByIssueType(data, "Initiative"));
-          setIssues(data);
-        });
+        let size = 1;
+        let startAt = 0;
+        let tempIssues = [];
+        while (size > 0) {
+          await invoke("getIssues", { projectKey: key, start: startAt }).then(
+            (data) => {
+              data.map((issue) => {
+                tempIssues.push(issue);
+              });
+              size = data.length;
+              startAt += size;
+            }
+          );
+        }
+        setEpics(parseByIssueType(tempIssues, "Epic"));
+        setInitiatives(parseByIssueType(tempIssues, "Initiative"));
+        setIssues(tempIssues);
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
       }

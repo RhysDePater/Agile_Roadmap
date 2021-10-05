@@ -1,8 +1,7 @@
 import { view, invoke, router } from "@forge/bridge";
 
-
 /**
- * 
+ *
  * @param {*} issuesData data to parse through
  * @param {*} issueTypeFilter issueType to return
  * @returns json array of issues filtered by issue type
@@ -18,13 +17,13 @@ export function parseByIssueType(issuesData, issueTypeFilter) {
 }
 
 /**
- * 
+ *
  * @param {*} initiatives initiatives json array
  * @param {*} epics epics json array
  * @param {*} fixedVersions fix versions json array
  * @returns json array of progress for initiatives
  */
-export function progressForInitiatives(initiatives, epics, fixedVersions){
+export function progressForInitiatives(initiatives, epics, fixedVersions) {
   //establish array ot return
   var initiativesProgress = [];
   //map thourhg all initiatives
@@ -33,37 +32,40 @@ export function progressForInitiatives(initiatives, epics, fixedVersions){
     let amountOfEpics = 0;
     let done = 0;
     let progress = 0;
-    let backlog = 0;  
+    let backlog = 0;
     //map through children of each initiative
     init.childrens.map((epicKey, j) => {
       //map through all the epics
       epics.map((epic, k) => {
         //if epics are chidlren of initiative
-        if(epicKey == epic.key){
+        if (epicKey == epic.key) {
           //map fixed versions
-          fixedVersions.map((version, v)=> {
+          fixedVersions.map((version, v) => {
             //if children exist within a fixed versions and the version is currently displayed
-              if(epic.fixVersions[0] == version.id && version.isSelected == true){
-                console.log(epic.fixVersions[0] + "==" + version.id)
-                console.log(version.isSelected)                
-                //add value based on value progress
-                if (epic.status == "Done") {
-                  done += 1;
-                } else if (
-                  epic.status == "Backlog" ||
-                  epic.status == "Selected For Development"
-                ) {
-                  backlog += 1;
-                } else {
-                  progress += 1;
-                }
-                //add to total amount of childrens 
-                amountOfEpics+=1      
-              }                      
-          })  
+            if (
+              epic.fixVersions[0] == version.id &&
+              version.isSelected == true
+            ) {
+              console.log(epic.fixVersions[0] + "==" + version.id);
+              console.log(version.isSelected);
+              //add value based on value progress
+              if (epic.status == "Done") {
+                done += 1;
+              } else if (
+                epic.status == "Backlog" ||
+                epic.status == "Selected For Development"
+              ) {
+                backlog += 1;
+              } else {
+                progress += 1;
+              }
+              //add to total amount of childrens
+              amountOfEpics += 1;
+            }
+          });
         }
-      })
-    })
+      });
+    });
     //add values to json array
     var iProgress = {
       key: init.key,
@@ -73,9 +75,9 @@ export function progressForInitiatives(initiatives, epics, fixedVersions){
       Backlog: backlog,
     };
     //push to array to return
-    initiativesProgress.push(iProgress)
-  })
-  console.log(initiativesProgress)
+    initiativesProgress.push(iProgress);
+  });
+  console.log(initiativesProgress);
   return initiativesProgress;
 }
 
@@ -123,4 +125,3 @@ export async function fetchAllIssueInfo(epicKeys, issues) {
   }
   return [issues];
 }
-
