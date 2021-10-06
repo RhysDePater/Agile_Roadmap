@@ -5,11 +5,11 @@ const apiHelper = require("./apiHelper");
  * @param {*} epicKey epic to get the issue off
  * @returns array of issue id's
  */
-export async function fetchStoriesForEpic(epic) {
+export async function fetchStoriesForEpic(epic, startAt, maxResults) {
   const res = await api
     .asApp()
     .requestJira(
-      route`/rest/api/3/search?jql=\"Epic Link\"=${epic}&maxResults=200`
+      route`/rest/api/3/search?jql=\"Epic Link\"=${epic}&startAt=${startAt}&maxResults=${maxResults}`
     )
     .then((res) => res.json())
     .then((res) => res.issues.map((data) => data))

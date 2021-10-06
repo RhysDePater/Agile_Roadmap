@@ -10,16 +10,12 @@ resolver.define("getFixedVersions", async ({ payload, context }) => {
 });
 
 resolver.define("getIssues", async ({ payload, context }) => {
-  return fetchLib.fetchIssueKeys(
-    payload.projectKey,
-    payload.start,
-    payload.max
-  );
+  return fetchLib.fetchIssueKeys(payload.Key, payload.start, payload.max);
   // return(apiHelper.fetchAllIssueInfo(payload.projectKey, fetchLib.fetchIssueKeys, fetchLib.fetchStoriesForEpic));
 });
 
 resolver.define("getStoriesForEpics", async ({ payload, context }) => {
-  return fetchLib.fetchStoriesForEpic(payload.epicKey);
+  return fetchLib.fetchStoriesForEpic(payload.Key, payload.start, payload.max);
 });
 
 resolver.define("getProgressForEpics", async ({ payload, context }) => {

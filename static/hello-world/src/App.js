@@ -27,7 +27,11 @@ import { view, invoke } from "@forge/bridge";
 import "./App.css";
 // import FilterDropDown from "./components/filter/FilterDropdown"
 import FilterComponent from "./components/filter/FilterComponent";
-import { parseByIssueType, progressForEpics } from "./services/helper";
+import {
+  paginationApiCalls,
+  parseByIssueType,
+  progressForEpics,
+} from "./services/helper";
 //import TableComponent from "./components/table/TableComponent";
 //import FixedVersionCol from "./components/table/FixedVersionCol";
 import ReactTableComponent from "./components/table/Table";
@@ -52,27 +56,12 @@ export default function App() {
         await invoke("getFixedVersions", { projectKey: key }).then((data) =>
           setFixedVersions(data)
         );
-        let size = 100;
-        let startAt = 0;
-        let maxResults = 100;
-        let tempIssues = [];
-        while (size >= maxResults || size > 0) {
-          await invoke("getIssues", {
-            projectKey: key,
-            start: startAt,
-            max: maxResults,
-          }).then((data) => {
-            data.map((issue) => {
-              tempIssues.push(issue);
-            });
-            size = data.length;
-            console.log(size);
-            startAt += size;
-          });
-        }
-        setEpics(parseByIssueType(tempIssues, "Epic"));
-        setInitiatives(parseByIssueType(tempIssues, "Initiative"));
-        setIssues(tempIssues);
+        paginationApiCalls(key, "getIssues").then((data) => {
+          console.log(data);
+          setEpics(parseByIssueType(data, "Epic"));
+          setInitiatives(parseByIssueType(data, "Initiative"));
+          setIssues(data);
+        });
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
       }
@@ -104,9 +93,7 @@ export default function App() {
         if (epics.length > 0) {
           let epicProgress = [];
           epics.map((epic, i) => {
-            invoke("getStoriesForEpics", {
-              epicKey: epic.key,
-            }).then((data) => {
+            paginationApiCalls(epic.key, "getStoriesForEpics").then((data) => {
               progressForEpics(data, epic.key).then((data) => {
                 epicProgress.push(data);
                 if (epics.length == epicProgress.length) {

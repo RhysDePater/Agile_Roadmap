@@ -125,3 +125,32 @@ export async function fetchAllIssueInfo(epicKeys, issues) {
   }
   return [issues];
 }
+
+/**
+ *
+ * @param {*} key key given to api call
+ * @param {*} apiFunction API function to be used in the function
+ * @returns returns all issues from api function after applying pagination
+ */
+export async function paginationApiCalls(key, apiFunction) {
+  let maxResults = 100;
+  let size = 100;
+  let startAt = 0;
+  let tempIssues = [];
+  while (size >= maxResults || size > 0) {
+    await invoke(apiFunction, {
+      Key: key,
+      start: startAt,
+      max: maxResults,
+    }).then((data) => {
+      data.map((issue) => {
+        tempIssues.push(issue);
+      });
+      size = data.length;
+      console.log(size);
+      startAt += size;
+    });
+  }
+  console.log(tempIssues);
+  return tempIssues;
+}
