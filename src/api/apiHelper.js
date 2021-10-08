@@ -3,7 +3,7 @@
  * 
  * @param {*} jsonArray array to parse
  * @param {*} fieldToReturn json field to return value of
- * @param {*} tertiaryField fieldValue for going an extra array level deep
+ * @param {*} tertiaryField fieldValue if value is an extra array level deep
  * @returns single field value from dynamic length json array
  */
  export function getSingleValueFromJsonArray(jsonArray, fieldToReturn, tertiaryField) {

@@ -81,6 +81,12 @@ export function progressForInitiatives(initiatives, epics, fixedVersions) {
   return initiativesProgress;
 }
 
+/**
+ * 
+ * @param {*} epic json array containing epics
+ * @param {*} key epic key to check progress of
+ * @returns 
+ */
 export async function progressForEpics(epic, key) {
   let done = 0;
   let progress = 0;

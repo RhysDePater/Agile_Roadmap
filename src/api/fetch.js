@@ -1,9 +1,10 @@
 import api, { route } from "@forge/api";
 const apiHelper = require("./apiHelper");
+
 /**
  *
  * @param {*} epicKey epic to get the issue off
- * @returns array of issue id's
+ * @returns json array of issue id's
  */
 export async function fetchStoriesForEpic(epic, startAt, maxResults) {
   const res = await api
@@ -23,7 +24,7 @@ export async function fetchStoriesForEpic(epic, startAt, maxResults) {
 /**
  *
  * @param {*} projectKey which project to fetch issues from
- * @returns issues values; key, issuetype, label
+ * @returns json array of issues data
  */
 export async function fetchIssueKeys(projectKey, startAt, maxResults) {
   const res = await api
@@ -96,8 +97,8 @@ export async function fetchIssueKeys(projectKey, startAt, maxResults) {
 
 /**
  *
- * @param {*} versionKey Project to return version keys of
- * @returns fixVersions id, name, startDate, endDate
+ * @param {*} projectKey Project key to search for fixed version values
+ * @returns json array of fixVersions id, name, startDate, endDate, isSelected
  */
 export async function fetchFixedVersions(projectKey) {
   console.log(projectKey);

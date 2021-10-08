@@ -5,13 +5,14 @@ const fetchLib = require("./api/fetch");
 const apiHelper = require("./api/apiHelper");
 const resolver = new Resolver();
 
+//resolver functions work as middleware to link backend api calls with frontend ui -documentaion @forge/bridge
+
 resolver.define("getFixedVersions", async ({ payload, context }) => {
   return fetchLib.fetchFixedVersions(payload.projectKey);
 });
 
 resolver.define("getIssues", async ({ payload, context }) => {
   return fetchLib.fetchIssueKeys(payload.Key, payload.start, payload.max);
-  // return(apiHelper.fetchAllIssueInfo(payload.projectKey, fetchLib.fetchIssueKeys, fetchLib.fetchStoriesForEpic));
 });
 
 resolver.define("getStoriesForEpics", async ({ payload, context }) => {

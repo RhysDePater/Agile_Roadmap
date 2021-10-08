@@ -32,11 +32,8 @@ export default function FilterComponent() {
 
     return (
         <div className="dropItem">
-
-
             {FilterDropdown(fixedVersions, setFixedVersions, "Releases")}
             {FilterDropdown(initiatives, setInitiatives, "Initiative")}
-
         </div>
     )
 }

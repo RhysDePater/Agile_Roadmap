@@ -22,18 +22,14 @@ import {
 //
 import { AppContext } from "./services/contextLib";
 //components
-//
 import { view, invoke } from "@forge/bridge";
 import "./App.css";
-// import FilterDropDown from "./components/filter/FilterDropdown"
 import FilterComponent from "./components/filter/FilterComponent";
 import {
   paginationApiCalls,
   parseByIssueType,
   progressForEpics,
 } from "./services/helper";
-//import TableComponent from "./components/table/TableComponent";
-//import FixedVersionCol from "./components/table/FixedVersionCol";
 import ReactTableComponent from "./components/table/Table";
 import { progressForInitiatives } from "./services/helper";
 export default function App() {
