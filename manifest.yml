@@ -1,14 +1,20 @@
 modules:
   jira:projectPage:
-    - key: hello-world-hello-world-project-page
-      function: main
+    - key: agile-roadmap-shared-hello-world-project-page
+      resource: main
+      resolver:
+        function: resolver
       title: Agile Roadmap
+      icon: https://developer.atlassian.com/platform/forge/images/issue-panel-icon.svg
   function:
-    - key: main
-      handler: index.run
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/Agile-Roadmap/build
 app:
-  id: ari:cloud:ecosystem::app/e25580b2-1108-4438-be86-93323f1c05ad
-  name: hello-world
+  id: ari:cloud:ecosystem::app/4c731d51-16a5-49f0-98b4-4a1cf3a4fb86
+  name: agileRoadmap
 permissions:
   scopes:
     - manage:jira-project
