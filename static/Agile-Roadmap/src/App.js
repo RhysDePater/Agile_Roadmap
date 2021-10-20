@@ -47,20 +47,32 @@ export default function App() {
   useEffect(() => {
     async function getAllInfo() {
       try {
+        //get all project context
         const context = await view.getContext();
+        //get project key from the context
         const key = context.extension.project.key;
+
+        //get fixed versions and save them to the fixedVersions State
         await invoke("getFixedVersions", { projectKey: key }).then((data) =>
           setFixedVersions(data)
         );
+
+        //call PaginatioApiCAlls for getIssues, which gets all issues
+        //this is done as jql queries are limited to a maxResults of 100 for cloud apps
+        //hence to get all issues for a large project this is required
         paginationApiCalls(key, "getIssues").then((data) => {
+          //parse the data to only grab epic and save them to the epics state
           setEpics(parseByIssueType(data, "Epic"));
+          //parse the data to only grab initiatives and save them to the intiatives state
           setInitiatives(parseByIssueType(data, "Initiative"));
+          //save all issues
           setIssues(data);
         });
       } catch (e) {
         console.log("API RENDER ERROR: " + e);
       }
     }
+    //call the function we just made
     getAllInfo();
   }, []);
 
@@ -68,10 +80,13 @@ export default function App() {
   useEffect(() => {
     function sortInitiatives() {
       try {
+        //if there are initiatives
         if (initiatives.length > 0) {
+          //save the new sorted array to temp_array
           const temp_array = initiatives.sort(function (a, b) {
             return new Date(a.dueDate) - new Date(b.dueDate);
           });
+          //set the initiatives as the new sorted array
           setInitiatives(temp_array);
         }
       } catch (e) {
@@ -79,6 +94,7 @@ export default function App() {
       }
     }
     sortInitiatives();
+    //runs this useEffect when a change in initiave is made
   }, [initiatives]);
 
   //get progress of all epics - refresh on epic change
@@ -87,10 +103,16 @@ export default function App() {
       try {
         if (epics.length > 0) {
           let epicProgress = [];
+          //map through all epics
           epics.map((epic, i) => {
+            //run pagination on epics for the same reason we do with getting issues
+            //this gets all the stories in the epic given to it
             paginationApiCalls(epic.key, "getStoriesForEpics").then((data) => {
+              //function to parse through all the stories given and collate there progress values
               progressForEpics(data, epic.key).then((data) => {
                 epicProgress.push(data);
+
+                //if every epic has been done
                 if (epics.length == epicProgress.length) {
                   setEpicsProgress(epicProgress);
                 }
@@ -132,7 +154,6 @@ export default function App() {
   if (fixedVersions.length > 0 && issues.length > 0) {
     return (
       <div>
-
         {/* Make arrays usestates global*/}
         <AppContext.Provider
           value={{

@@ -82,12 +82,13 @@ export function progressForInitiatives(initiatives, epics, fixedVersions) {
 }
 
 /**
- * 
+ *
  * @param {*} epic json array containing epics
  * @param {*} key epic key to check progress of
- * @returns 
+ * @returns
  */
 export async function progressForEpics(epic, key) {
+  //refer to progressForInitiatives on how this works as that function is based of this one
   let done = 0;
   let progress = 0;
   let backlog = 0;
@@ -123,6 +124,7 @@ export async function progressForEpics(epic, key) {
  * @returns returns combined 2 api calls values into a single array of arrays
  */
 export async function fetchAllIssueInfo(epicKeys, issues) {
+  //I believe this function isn't used anymore but kept as could be useful
   for (let i = 0; i < issues.length; i++) {
     if (issues[i][2] == "Epic") {
       let issuesKeys = await apiCall2(issues[i][0]);
@@ -143,12 +145,17 @@ export async function paginationApiCalls(key, apiFunction) {
   let size = 100;
   let startAt = 0;
   let tempIssues = [];
+
+  //while there are still items being returned by the api
   while (size >= maxResults || size > 0) {
+    //invoke the api call
     await invoke(apiFunction, {
       Key: key,
       start: startAt,
       max: maxResults,
     }).then((data) => {
+      //map the data then push each element into tempissues
+      //has to be done this way due to how the data is returned by Jira
       data.map((issue) => {
         tempIssues.push(issue);
       });
